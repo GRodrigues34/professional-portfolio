@@ -1,0 +1,178 @@
+---
+import SEO from '../components/SEO.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/sections/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <SEO title={title} description={description} />
+    <SchemaOrg />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Trigger initial masked line reveal
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            root.classList.add('is-ready');
+          });
+        });
+
+        const floatingBar = document.getElementById('floating-bar');
+        const heroStage = document.getElementById('inicio');
+        const heroCue = document.getElementById('hero-scroll-cue');
+        const heroTitle = document.getElementById('hero-title-block');
+        const heroCase = document.getElementById('hero-case-preview');
+
+        const slides = Array.from(document.querySelectorAll('.project-slide'));
+        const valuesTrack = document.getElementById('values-scrub-track');
+        const scrubWords = Array.from(document.querySelectorAll('#values-manifesto .scrub-word'));
+
+        const workflowSteps = Array.from(document.querySelectorAll('.workflow-step'));
+        const workflowIndexItems = Array.from(document.querySelectorAll('#workflow-index li'));
+        const workflowBigNum = document.getElementById('workflow-big-num');
+
+        const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+        let ticking = false;
+
+        const updateStorytelling = () => {
+          ticking = false;
+          const vh = window.innerHeight || 1;
+          const sy = window.scrollY;
+          const isDesktop = window.innerWidth >= 960;
+
+          // 1. Floating Bar visibility after Hero
+          if (floatingBar) {
+            floatingBar.classList.toggle('is-visible', sy > vh * 0.68);
+          }
+
+          if (reduceMotion) return;
+
+          // 2. Hero Scroll Drift & Cue Fade (Enki .hero pattern)
+          if (heroStage && sy < vh * 1.4) {
+            const heroProg = clamp(sy / vh, 0, 1);
+            if (heroCue) {
+              heroCue.style.opacity = String(clamp(1 - heroProg * 4.5, 0, 1));
+            }
+            if (heroTitle && isDesktop) {
+              heroTitle.style.transform = `translate3d(0, ${-heroProg * 72}px, 0)`;
+            }
+            if (heroCase && isDesktop) {
+              heroCase.style.transform = `translate3d(0, ${-heroProg * 44}px, 0)`;
+            }
+          }
+
+          // 3. Sticky Stacking Project Slides (Enki .slides scrub)
+          if (slides.length > 1) {
+            for (let i = 0; i < slides.length - 1; i++) {
+              const currentSlide = slides[i];
+              const nextSlide = slides[i + 1];
+              const inner = currentSlide.querySelector('.project-slide-inner');
+              const shade = currentSlide.querySelector('.project-slide-shade');
+              if (!inner || !shade) continue;
+
+              if (!isDesktop) {
+                inner.style.transform = '';
+                inner.style.borderRadius = '';
+                shade.style.opacity = '0';
+                continue;
+              }
+
+              const nextRect = nextSlide.getBoundingClientRect();
+              const p = clamp(1 - nextRect.top / vh, 0, 1);
+              const scale = 1 - p * 0.11;
+              const rot = (i % 2 === 0 ? -1.4 : 1.4) * p;
+              const radius = p * 18;
+              inner.style.transform = `scale(${scale.toFixed(4)}) rotate(${rot.toFixed(2)}deg)`;
+              inner.style.borderRadius = `${radius.toFixed(1)}px`;
+              shade.style.opacity = (p * 0.56).toFixed(3);
+            }
+          }
+
+          // 4. Values Pinned Manifesto Word Illumination (Enki #about scrub)
+          if (valuesTrack && scrubWords.length > 0) {
+            const rect = valuesTrack.getBoundingClientRect();
+            const totalTravel = Math.max(rect.height - vh * 0.85, vh * 0.5);
+            const scrolled = clamp((vh * 0.22 - rect.top) / totalTravel, 0, 1);
+            const litFloat = scrolled * (scrubWords.length + 1);
+
+            for (let i = 0; i < scrubWords.length; i++) {
+              const wordProgress = clamp(litFloat - i, 0, 1);
+              const op = 0.16 + wordProgress * 0.84;
+              scrubWords[i].style.opacity = op.toFixed(2);
+            }
+          }
+
+          // 5. Workflow Sticky Index & Stage Fading (Enki #approach scrub)
+          if (workflowSteps.length > 0) {
+            let activeWorkflowIdx = 0;
+            const focusLine = vh * 0.55;
+
+            workflowSteps.forEach((step, idx) => {
+              const r = step.getBoundingClientRect();
+              if (r.top <= focusLine) {
+                activeWorkflowIdx = idx;
+              }
+
+              // Smooth entrance and exit as step passes through reading band
+              const centerDist = (r.top + r.height * 0.35 - vh * 0.48) / (vh * 0.42);
+              const absDist = Math.abs(centerDist);
+              const stepOp = clamp(1.25 - absDist * 1.05, 0.08, 1);
+              const stepY = clamp(centerDist * 24, -22, 28);
+              step.style.opacity = stepOp.toFixed(2);
+              step.style.transform = `translate3d(0, ${stepY.toFixed(1)}px, 0)`;
+            });
+
+            workflowIndexItems.forEach((li, j) => {
+              const isAct = j === activeWorkflowIdx;
+              li.className = `flex items-center gap-3.5 transition-all duration-500 ${
+                isAct ? 'text-[#faf8f5] translate-x-2.5' : 'text-[var(--dim)]'
+              }`;
+            });
+
+            if (workflowBigNum) {
+              const activeStepEl = workflowSteps[activeWorkflowIdx];
+              const stepNo = activeStepEl?.getAttribute('data-step-no') || `0${activeWorkflowIdx + 1}`;
+              if (workflowBigNum.textContent !== stepNo) {
+                workflowBigNum.textContent = stepNo;
+              }
+            }
+          }
+        };
+
+        const onScroll = () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateStorytelling);
+          }
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        updateStorytelling();
+      })();
+    </script>
+  </body>
+</html>

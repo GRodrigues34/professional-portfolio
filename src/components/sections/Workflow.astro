@@ -1,0 +1,137 @@
+---
+const steps = [
+  {
+    no: "01",
+    label: "Descoberta.",
+    en: "Discovery",
+    text: "Começamos entendendo a fundo o modelo do seu negócio, o perfil do seu cliente, a sua oferta comercial e o objetivo exato que o projeto precisa alcançar.",
+    flip: false,
+  },
+  {
+    no: "02",
+    label: "Direção.",
+    en: "Direction",
+    text: "Definimos a estrutura de navegação, o roteiro de leitura, a identidade visual e a arquitetura técnica ideal antes de escrever qualquer linha de código.",
+    flip: true,
+  },
+  {
+    no: "03",
+    label: "Desenvolvimento.",
+    en: "Development",
+    text: "Transformamos a direção aprovada em uma experiência digital rápida, responsiva e sob medida, com engenharia limpa e atenção a cada interação.",
+    flip: false,
+  },
+  {
+    no: "04",
+    label: "Refinamento.",
+    en: "Refinement",
+    text: "Auditamos velocidade de carregamento, SEO regional, contraste tipográfico e comportamento em celulares e computadores junto com você antes da estreia.",
+    flip: true,
+  },
+  {
+    no: "05",
+    label: "Publicação.",
+    en: "Publish",
+    text: "Colocamos o projeto no ar em infraestrutura global de alta disponibilidade com certificado SSL, domínio configurado e suporte direto contínuo.",
+    flip: false,
+  },
+];
+---
+
+<section id="processo" class="relative bg-[#0d0c0b] border-t border-[var(--line)]">
+  <!-- Sticky Backdrop & Pinned Index (Enki #approach pattern) -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="sticky top-0 h-[100svh] overflow-hidden flex flex-col justify-between py-[var(--gutter)]">
+      <!-- Architectural background grid & radial wash -->
+      <div
+        class="absolute inset-0"
+        style="background: repeating-linear-gradient(90deg, rgba(250, 248, 245, 0.025) 0px, rgba(250, 248, 245, 0.025) 1px, transparent 1px, transparent 160px), radial-gradient(50% 45% at 28% 45%, rgba(255, 85, 0, 0.11), transparent 70%);"
+      ></div>
+
+      <!-- Top Sticky Marker (Left Column only, never collides with scrolling steps in cols 4-12) -->
+      <div class="container-ed grid-12 items-baseline pt-20 relative z-10">
+        <div class="col-span-12 md:col-span-3 space-y-2">
+          <p class="p-ed text-[#ff5500]">04 / Metodologia</p>
+          <p class="p-ed hidden md:block max-w-[220px]">
+            Processo direto em 5 etapas, sem intermediários.
+          </p>
+        </div>
+      </div>
+
+      <!-- Giant Dynamic Stage Numeral -->
+      <div class="container-ed relative z-10 hidden md:flex justify-end items-center pr-8">
+        <span
+          id="workflow-big-num"
+          class="text-[22vw] font-medium leading-[0.8] tracking-[-0.07em] text-[rgba(250,248,245,0.045)] select-none tabular-nums transition-all duration-500"
+        >
+          01
+        </span>
+      </div>
+
+      <!-- Bottom-Left Pinned Index (Enki .approach-index) -->
+      <div class="container-ed relative z-10 pb-4">
+        <ol id="workflow-index" class="flex flex-col gap-1.5 text-[14px] font-medium tracking-[-0.02em]">
+          {steps.map((s, idx) => (
+            <li
+              data-index-item={idx}
+              class={`flex items-center gap-3.5 transition-all duration-500 ${
+                idx === 0 ? "text-[#faf8f5] translate-x-2" : "text-[var(--dim)]"
+              }`}
+            >
+              <span class="tabular-nums text-[#ff5500]">{s.no}</span>
+              <span>{s.label.replace(".", "")}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scrolling Steps Foreground (Enki .approach-head + .approach-steps) -->
+  <div class="container-ed relative z-10 pt-[18vh] pb-[26vh]">
+    <!-- Editorial Section Lead-In (scrolls away cleanly as steps rise) -->
+    <div class="grid-12 items-end pb-[18vh]">
+      <h2 class="col-span-12 md:col-span-8 md:col-start-4 h2-ed">
+        Da descoberta à <span class="serif-italic font-normal text-[var(--grey)]">publicação.</span>
+      </h2>
+    </div>
+
+    {steps.map((step, idx) => (
+      <div
+        class="workflow-step grid-12 items-start min-h-[52vh] py-12"
+        data-workflow-step={idx}
+        data-step-no={step.no}
+      >
+        {step.flip ? (
+          <>
+            <div class="col-span-12 md:col-span-2 md:col-start-4">
+              <p class="text-[clamp(22px,2vw,30px)] font-medium tracking-[-0.03em] text-[#ff5500]">
+                {step.label}
+              </p>
+              <span class="text-[12px] text-[var(--dim)] block mt-1">{step.en}</span>
+            </div>
+            <div class="col-span-12 md:col-span-5 md:col-start-7 mt-4 md:mt-0">
+              <p class="text-[clamp(18px,1.5vw,24px)] font-[450] leading-[1.35] tracking-[-0.02em] text-[#faf8f5] max-w-[440px]">
+                {step.text}
+              </p>
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="col-span-12 md:col-span-5 md:col-start-5">
+              <p class="text-[clamp(18px,1.5vw,24px)] font-[450] leading-[1.35] tracking-[-0.02em] text-[#faf8f5] max-w-[440px]">
+                {step.text}
+              </p>
+            </div>
+            <div class="col-span-12 md:col-span-3 md:col-start-10 mt-4 md:mt-0">
+              <p class="text-[clamp(22px,2vw,30px)] font-medium tracking-[-0.03em] text-[#ff5500]">
+                {step.label}
+              </p>
+              <span class="text-[12px] text-[var(--dim)] block mt-1">{step.en}</span>
+            </div>
+          </>
+        )}
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,19 @@
+# Build & Dependencies
+node_modules/
+dist/
+.astro/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Project Planning & References (Internal Workflow Only)
+references/
+*.md
+!README.md
+!GEMINI.md
+
+# System Files
+.DS_Store
+Thumbs.db

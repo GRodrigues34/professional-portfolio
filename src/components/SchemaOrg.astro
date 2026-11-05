@@ -1,0 +1,41 @@
+---
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Gustavo Rodrigues | Desenvolvimento Web e Automações",
+  "image": "https://gustavorodrigues.dev/favicon.svg",
+  "@id": "https://gustavorodrigues.dev",
+  "url": "https://gustavorodrigues.dev",
+  "telephone": "+55-35-98478-8359",
+  "priceRange": "R$ 390 - R$ 990+",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Alfenas",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -21.4258,
+    "longitude": -45.9467
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "https://github.com/GRodrigues34",
+    "https://instagram.com/g_rodrigues04"
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

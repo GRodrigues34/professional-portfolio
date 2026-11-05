@@ -1,0 +1,37 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = "Gustavo Rodrigues | Desenvolvimento Web e Automações em Alfenas, MG",
+  description = "Desenvolvimento de landing pages ultra-rápidas, sites institucionais e automações comerciais de alta performance com Gustavo Rodrigues em Alfenas, MG.",
+  canonical = "https://gustavorodrigues.dev",
+} = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- OpenGraph / WhatsApp / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="Gustavo Rodrigues | Engenharia Web & Automações" />
+<meta property="og:locale" content="pt_BR" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+<!-- Theme & Mobile -->
+<meta name="theme-color" content="#09090b" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />

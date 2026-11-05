@@ -1,0 +1,60 @@
+---
+const faqs = [
+  {
+    q: "Quanto tempo demora para o meu site ficar pronto?",
+    a: "Depende do formato contratado: Landing Pages de alta conversão podem ser entregues em até 4 horas úteis após o envio das informações básicas, enquanto Sites Institucionais levam de 24 a 72 horas úteis e sistemas especiais possuem cronograma próprio. O prazo exato é firmado antes do início.",
+  },
+  {
+    q: "Preciso entender de tecnologia ou programação?",
+    a: "De forma alguma. Eu cuido de toda a arquitetura, configuração de servidor, domínio, certificado de segurança e publicação, traduzindo cada etapa em decisões comerciais simples para você.",
+  },
+  {
+    q: "O que está incluso na mensalidade de hospedagem e manutenção?",
+    a: "Cobre hospedagem em servidores globais de ultra-baixa latência, certificado SSL ativo, monitoramento de disponibilidade, atualizações técnicas e pequenos ajustes de texto, imagens ou links de contato sempre que precisar.",
+  },
+  {
+    q: "O domínio (.com.br) fica registrado em meu nome?",
+    a: "Sim, 100% no seu CPF ou CNPJ. Oriento todo o processo no Registro.br para garantir que o endereço oficial da sua empresa seja sempre uma propriedade sua.",
+  },
+  {
+    q: "Como funcionam os projetos sob análise (Sistemas e IA)?",
+    a: "Para Produtos Digitais Especiais e Automações com IA, realizamos uma conversa inicial para mapear as regras do seu negócio e integrações necessárias. Com base nisso, apresento uma proposta fechada com escopo e cronograma claros antes de qualquer compromisso.",
+  },
+  {
+    q: "Você atende empresas fora de Alfenas, MG?",
+    a: "Sim, atendo empresas e profissionais em todo o Brasil. O alinhamento é feito pelo WhatsApp ou chamada de vídeo, com links de pré-visualização em tempo real para você acompanhar a evolução.",
+  },
+];
+---
+
+<section id="faq" class="py-[clamp(96px,14vh,180px)] bg-[#0a0a0a] border-t border-[var(--line)]">
+  <div class="container-ed grid-12 items-start">
+    <!-- Left Sticky Header (Col 1-4) -->
+    <div class="col-span-12 md:col-span-4 md:sticky md:top-[16vh] space-y-5 mb-12 md:mb-0">
+      <p class="p-ed text-[#ff5500]">06 / Dúvidas comuns</p>
+      <h2 class="h2-ed">
+        Antes de <span class="serif-italic font-normal text-[var(--grey)]">começar.</span>
+      </h2>
+      <p class="p-ed max-w-[320px]">
+        Respostas diretas sobre prazos, hospedagem, propriedade do domínio e funcionamento do trabalho.
+      </p>
+    </div>
+
+    <!-- Right Hairline Details List (Col 5-13) -->
+    <div class="col-span-12 md:col-span-8 md:col-start-5 border-b border-[var(--line)]">
+      {faqs.map((item, idx) => (
+        <details class="group border-t border-[var(--line)] py-6 transition-colors" open={idx === 0}>
+          <summary class="flex items-center justify-between gap-6 cursor-pointer list-none text-[clamp(18px,1.5vw,23px)] font-medium tracking-[-0.025em] text-[#faf8f5] group-hover:text-[#ff5500] transition-colors">
+            <span>{item.q}</span>
+            <span class="text-[#ff5500] text-xl font-normal transition-transform duration-300 group-open:rotate-45 shrink-0">
+              +
+            </span>
+          </summary>
+          <p class="p-ed mt-4 max-w-[640px] pr-8">
+            {item.a}
+          </p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

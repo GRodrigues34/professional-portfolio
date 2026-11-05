@@ -1,0 +1,95 @@
+---
+const channels = [
+  {
+    no: "01",
+    label: "WhatsApp Comercial",
+    value: "+55 35 98478-8359",
+    note: "Canal mais rápido · Resposta direta para orçamentos e dúvidas",
+    href: "https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto.",
+    cta: "Iniciar conversa agora",
+    external: true,
+  },
+  {
+    no: "02",
+    label: "E-mail Direto",
+    value: "contato@gustavorodrigues.dev",
+    note: "Para envio de escopos detalhados, documentos e propostas formais",
+    href: "mailto:contato@gustavorodrigues.dev?subject=Novo%20Projeto%20%E2%80%94%20Gustavo%20Rodrigues",
+    cta: "Enviar e-mail",
+    external: false,
+  },
+  {
+    no: "03",
+    label: "Instagram",
+    value: "@g_rodrigues04",
+    note: "Acompanhe bastidores, projetos recentes e envie mensagem direta",
+    href: "https://instagram.com/g_rodrigues04",
+    cta: "Acessar perfil",
+    external: true,
+  },
+];
+---
+
+<section id="contato" class="relative py-[clamp(110px,16vh,210px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
+  <!-- Subtle ambient glow -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background: radial-gradient(60% 55% at 75% 80%, rgba(255, 85, 0, 0.1), transparent 70%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-ed relative z-10 space-y-20">
+    <!-- Top Editorial Headline (Enki #contact scale) -->
+    <div class="grid-12 items-end">
+      <div class="col-span-12 md:col-span-3">
+        <p class="p-ed text-[#ff5500]">07 / Iniciar um projeto</p>
+      </div>
+      <div class="col-span-12 md:col-span-9 space-y-6 mt-4 md:mt-0">
+        <h2 class="h1-ed max-w-[13ch]">
+          Se a visão é ambiciosa, o seu site deve estar <span class="serif-italic font-normal text-[var(--grey)]">à altura.</span>
+        </h2>
+        <p class="p-ed max-w-[460px]">
+          Conte brevemente o que sua empresa faz e qual resultado você busca. Vou indicar a direção certa, com valor fechado e prazo definido antes de começar.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3 Architectural Contact Rows (WhatsApp, Email, Instagram) -->
+    <div class="border-b border-[var(--line)]">
+      {channels.map((ch) => (
+        <a
+          href={ch.href}
+          target={ch.external ? "_blank" : undefined}
+          rel={ch.external ? "noopener noreferrer" : undefined}
+          class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-baseline group block"
+        >
+          <span class="md:col-span-1 text-[14px] font-medium text-[var(--dim)] group-hover:text-[#ff5500] transition-colors tabular-nums">
+            {ch.no}
+          </span>
+          <span class="md:col-span-3 text-[15px] font-medium text-[var(--grey)]">
+            {ch.label}
+          </span>
+          <div class="md:col-span-5">
+            <span class="text-[clamp(22px,2.4vw,38px)] font-medium tracking-[-0.035em] text-[#faf8f5] group-hover:text-[#ff5500] transition-colors block leading-tight">
+              {ch.value}
+            </span>
+            <span class="text-[13px] text-[var(--dim)] block mt-1.5">
+              {ch.note}
+            </span>
+          </div>
+          <div class="md:col-span-3 md:justify-self-end pt-2 md:pt-0">
+            <span class="inline-flex items-center gap-2 text-[15px] font-medium text-[#faf8f5]">
+              <span class="roll">
+                <span class="roll-a">{ch.cta}</span>
+                <span class="roll-b" aria-hidden="true">{ch.cta}</span>
+              </span>
+              <span class="text-[#ff5500] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                ↗
+              </span>
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
