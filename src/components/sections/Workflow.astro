@@ -33,7 +33,7 @@ const steps = [
 ];
 ---
 
-<section id="processo" class="relative min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0d0c0b] border-t border-[var(--line)] overflow-hidden">
+<section id="processo" class="relative z-[3] min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0d0c0b] border-t border-[var(--line)] overflow-hidden">
   <!-- Subtle architectural background wash -->
   <div
     class="absolute inset-0 pointer-events-none"
@@ -48,7 +48,10 @@ const steps = [
         <p class="p-ed text-[#ff5500]">04 / Metodologia</p>
       </div>
       <h2 class="col-span-12 md:col-span-5 h2-ed">
-        Da descoberta à <span class="serif-italic font-normal text-[var(--grey)]">publicação.</span>
+        <span class="word-mask"><span class="reveal-word">Da</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">descoberta</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">à</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">publicação.</span></span>
       </h2>
       <div class="col-span-12 md:col-span-4 max-w-[340px]">
         <p class="p-ed">

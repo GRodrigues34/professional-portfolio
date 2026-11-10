@@ -27,13 +27,20 @@ const ledgerItems = [
 ];
 ---
 
-<section id="valores" class="min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
+<section id="valores" class="relative z-[3] min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
   <div class="container-ed story-stage grid-12 items-start">
     <!-- Left Column: Simple Phrase & Section Identity (Col 1-4) -->
     <div data-story-item="0" data-story-dir="left" class="col-span-12 lg:col-span-4 lg:sticky lg:top-[18vh] space-y-5 mb-12 lg:mb-0">
       <p class="p-ed text-[#ff5500]">02 / Filosofia de Engenharia</p>
       <h2 class="h2-ed">
-        Por que a engenharia define a sua <span class="serif-italic font-normal text-[var(--grey)]">conversão.</span>
+        <span class="word-mask"><span class="reveal-word">Por</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">que</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">a</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">engenharia</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">define</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">a</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word">sua</span></span>{" "}
+        <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">conversão.</span></span>
       </h2>
       <p class="p-ed max-w-[340px]">
         Criado para empresas e profissionais que recusam páginas genéricas e lentas.

@@ -2,7 +2,10 @@
 import { ParticleCanvas } from '../widgets/ParticleCanvas';
 ---
 
-<section id="inicio" class="hero-stage relative min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0a0a0a]">
+<section
+  id="inicio"
+  class="hero-stage sticky top-0 z-[1] h-[100svh] flex flex-col justify-between overflow-hidden bg-[#0a0a0a]"
+>
   <!-- Interactive Constellation Canvas (Lucas Portfolio pattern) -->
   <ParticleCanvas client:load />
 
@@ -13,18 +16,23 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
     aria-hidden="true"
   ></div>
 
-  <div class="container-ed story-stage relative z-10 flex-1 flex flex-col justify-between pt-[clamp(96px,13vh,136px)] pb-[clamp(28px,4vh,48px)] gap-10">
+  <!-- Fluid dark shade that deepens as Projects rises over Hero -->
+  <div
+    id="hero-exit-shade"
+    class="absolute inset-0 bg-[#0a0a0a] opacity-0 pointer-events-none z-[5]"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-ed relative z-10 flex-1 flex flex-col justify-between pt-[clamp(88px,11vh,124px)] pb-[clamp(24px,3.5vh,42px)] gap-6">
     <!-- Main Unified Hero Stage (image_4 architecture) -->
-    <div class="grid-12 items-center my-auto gap-y-12">
+    <div class="grid-12 items-center my-auto gap-y-10">
       <!-- Left Column: Identity Logo, Strong Phrase, Simple Description, Immediate CTAs -->
       <div
         id="hero-title-block"
-        data-story-item="0"
-        data-story-dir="left"
-        class="col-span-12 lg:col-span-6 flex flex-col items-start gap-6"
+        class="col-span-12 lg:col-span-6 flex flex-col items-start gap-5 sm:gap-6"
       >
         <!-- Brand / Logo Lockup -->
-        <div class="inline-flex items-center gap-3.5">
+        <div data-hero-el="0" class="inline-flex items-center gap-3.5 hero-load-item" style="--load-delay: 0.04s;">
           <div class="w-10 h-10 border border-[var(--line)] bg-[#111111] flex items-center justify-center text-[16px] font-medium tracking-[-0.05em] text-[#faf8f5]">
             <span>GR</span><span class="text-[#ff5500]">.</span>
           </div>
@@ -38,20 +46,24 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
           </div>
         </div>
 
-        <!-- Monumental Headline -->
-        <h1 class="h1-ed max-w-[12ch]" aria-label="O site que eleva o patamar do seu negócio.">
+        <!-- Monumental Headline with Masked Word Reveal -->
+        <h1
+          data-hero-el="1"
+          class="h1-ed max-w-[12ch]"
+          aria-label="O site que eleva o patamar do seu negócio."
+        >
           <span class="line-mask"><span class="line-inner">O site que eleva</span></span>
           <span class="line-mask"><span class="line-inner">o patamar do</span></span>
           <span class="line-mask"><span class="line-inner"><em class="serif-italic font-normal text-[#faf8f5]">seu negócio.</em></span></span>
         </h1>
 
         <!-- Simple Description -->
-        <p class="p-ed max-w-[48ch]">
+        <p data-hero-el="2" class="p-ed max-w-[48ch] hero-load-item" style="--load-delay: 0.26s;">
           Experiências digitais personalizadas, sistemas sob medida e automações para profissionais e empresas que querem transformar presença online em credibilidade e vendas.
         </p>
 
         <!-- Immediate CTAs -->
-        <div class="flex flex-wrap items-center gap-3.5 pt-1">
+        <div data-hero-el="3" class="flex flex-wrap items-center gap-3.5 pt-1 hero-load-item" style="--load-delay: 0.34s;">
           <a
             href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto."
             target="_blank"
@@ -76,16 +88,18 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
         </div>
       </div>
 
-      <!-- Right Column: Fanned Snippets of Works -->
+      <!-- Right Column: 3D Mouse-Reactive Fanned Snippets of Works -->
       <div
         id="hero-case-preview"
-        data-story-item="1"
-        data-story-dir="right"
-        class="col-span-12 lg:col-span-6 relative min-h-[290px] sm:min-h-[360px] flex items-center justify-center"
+        data-hero-el="2"
+        class="col-span-12 lg:col-span-6 relative min-h-[270px] sm:min-h-[340px] flex items-center justify-center hero-load-item"
+        style="--load-delay: 0.18s; perspective: 1000px;"
       >
         <a
           href="#projetos"
-          class="relative w-full max-w-[520px] h-[270px] sm:h-[330px] block group"
+          id="hero-visual-3d"
+          class="relative w-full max-w-[520px] h-[260px] sm:h-[320px] block group transition-transform duration-300 ease-out"
+          style="transform-style: preserve-3d;"
           aria-label="Explorar projetos em destaque"
         >
           <!-- Card 3 (Back-Right Snippet) -->
@@ -166,10 +180,11 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
 
     <!-- Bottom Proof Bar (Projects | Attendance Range | Direct Contact) -->
     <div
-      data-story-item="2"
-      class="w-full border border-[var(--line)] bg-[#111111]/90 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--line)]"
+      data-hero-el="4"
+      class="w-full border border-[var(--line)] bg-[#111111]/90 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--line)] hero-load-item"
+      style="--load-delay: 0.42s;"
     >
-      <div class="px-6 py-5 sm:px-8 sm:py-6">
+      <div class="px-6 py-4 sm:px-8 sm:py-5">
         <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5] tabular-nums">
           +10 projetos
         </strong>
@@ -178,7 +193,7 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
         </span>
       </div>
 
-      <div class="px-6 py-5 sm:px-8 sm:py-6">
+      <div class="px-6 py-4 sm:px-8 sm:py-5">
         <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5]">
           Todo o Brasil
         </strong>
@@ -187,7 +202,7 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
         </span>
       </div>
 
-      <div class="px-6 py-5 sm:px-8 sm:py-6">
+      <div class="px-6 py-4 sm:px-8 sm:py-5">
         <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5]">
           Direto
         </strong>

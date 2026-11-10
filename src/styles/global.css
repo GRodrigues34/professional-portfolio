@@ -335,6 +335,39 @@ a:focus-visible .roll-b {
   transition-delay: 0.24s;
 }
 
+/* Staggered load entrance for Hero elements (xd-agencia power4.out pattern) */
+.hero-load-item {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--load-delay, 0s),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--load-delay, 0s);
+}
+
+.is-ready .hero-load-item {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Word-by-word masked scroll reveal (xd-agencia .word-mask > .hero-word pattern) */
+.word-mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.reveal-word {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-revealed .reveal-word {
+  transform: translate3d(0, 0, 0);
+}
+
 /* Project Card & Side-by-Side Carousel Primitives */
 .project-card {
   position: relative;

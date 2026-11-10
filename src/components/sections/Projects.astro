@@ -6,78 +6,90 @@ import { PROJECTS } from '../../data/projects';
 <section
   id="projetos"
   aria-label="Projetos selecionados"
-  class="min-h-[88svh] flex flex-col justify-center py-[clamp(64px,8vh,110px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden"
+  class="relative z-[2] min-h-[165svh]"
 >
-  <div class="container-ed story-stage space-y-10">
-    <!-- Compact Editorial Lead-In Header -->
-    <div data-story-item="0" class="grid-12 items-end gap-y-4">
-      <div class="col-span-12 md:col-span-3">
-        <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
-      </div>
-      <h2 class="col-span-12 md:col-span-5 h2-ed">
-        Trabalhos que <span class="serif-italic font-normal text-[var(--grey)]">falam</span> por si.
-      </h2>
-      <div class="col-span-12 md:col-span-4 max-w-[360px]">
-        <p class="p-ed">
-          Sistemas, sites e automações reais construídos sob medida para gerar autoridade, velocidade e resultado operacional.
-        </p>
-      </div>
-    </div>
-
-    <!-- Side-by-Side Carousel Panel with Lateral Navigation Buttons -->
-    <div data-story-item="1" class="relative flex items-center gap-3 sm:gap-5">
-      <!-- Left Lateral Button (brings 1 project at a time) -->
-      <button
-        type="button"
-        id="projects-prev"
-        aria-label="Projeto anterior"
-        class="project-nav-btn shrink-0"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="m15 18-6-6 6-6" />
-        </svg>
-      </button>
-
-      <!-- Carousel Viewport (3 projects on desktop, 1 on phone) -->
-      <div
-        id="projects-viewport"
-        class="w-full overflow-hidden py-5 px-2 -mx-2"
-      >
-        <div
-          id="projects-track"
-          class="flex transition-transform duration-500 ease-[var(--ease)]"
-          style="--cards-per-view: 1; --card-gap: 24px; gap: var(--card-gap);"
-        >
-          {PROJECTS.map((project, idx) => (
-            <div
-              class="project-carousel-item shrink-0"
-              data-project-index={idx}
-            >
-              <ProjectCard {...project} index={idx} />
-            </div>
-          ))}
+  <!-- Sticky Stage: rises over Hero, then locks in full view so user can inspect projects -->
+  <div
+    id="projects-sticky-stage"
+    class="sticky top-0 min-h-[100svh] flex flex-col justify-center py-[clamp(76px,10vh,112px)] border-t border-[rgba(255,85,0,0.28)] transition-colors duration-300"
+    style="background: linear-gradient(180deg, rgba(10, 10, 10, 0.78) 0%, rgba(10, 10, 10, 0.96) 24%, #0a0a0a 55%); backdrop-filter: blur(12px); box-shadow: 0 -36px 90px rgba(0, 0, 0, 0.92);"
+  >
+    <div class="container-ed space-y-9">
+      <!-- Compact Editorial Lead-In Header -->
+      <div class="grid-12 items-end gap-y-4">
+        <div data-proj-el="0" class="col-span-12 md:col-span-3">
+          <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
+        </div>
+        <h2 data-proj-el="1" class="col-span-12 md:col-span-5 h2-ed">
+          <span class="word-mask"><span class="reveal-word">Trabalhos</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">que</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">falam</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">por</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">si.</span></span>
+        </h2>
+        <div data-proj-el="2" class="col-span-12 md:col-span-4 max-w-[360px]">
+          <p class="p-ed">
+            Sistemas, sites e automações reais construídos sob medida para gerar autoridade, velocidade e resultado operacional.
+          </p>
         </div>
       </div>
 
-      <!-- Right Lateral Button (brings 1 project at a time) -->
-      <button
-        type="button"
-        id="projects-next"
-        aria-label="Próximo projeto"
-        class="project-nav-btn shrink-0"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="m9 18 6-6-6-6" />
-        </svg>
-      </button>
-    </div>
+      <!-- Side-by-Side Carousel Panel with Lateral Navigation Buttons -->
+      <div data-proj-el="3" class="relative flex items-center gap-3 sm:gap-5">
+        <!-- Left Lateral Button (brings 1 project at a time) -->
+        <button
+          type="button"
+          id="projects-prev"
+          aria-label="Projeto anterior"
+          class="project-nav-btn shrink-0"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
 
-    <!-- Subtle Bottom Pagination Status -->
-    <div data-story-item="2" class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[13px] text-[var(--dim)]">
-      <span>Passe o cursor sobre um projeto para destacar ou use as setas laterais</span>
-      <span id="projects-counter" class="font-medium text-[#faf8f5] tabular-nums">
-        <span class="text-[#ff5500]" id="projects-current-idx">01</span> / 0{PROJECTS.length}
-      </span>
+        <!-- Carousel Viewport (3 projects on desktop, 1 on phone) -->
+        <div
+          id="projects-viewport"
+          class="w-full overflow-hidden py-5 px-2 -mx-2"
+        >
+          <div
+            id="projects-track"
+            class="flex transition-transform duration-500 ease-[var(--ease)]"
+            style="--cards-per-view: 1; --card-gap: 24px; gap: var(--card-gap);"
+          >
+            {PROJECTS.map((project, idx) => (
+              <div
+                class="project-carousel-item shrink-0"
+                data-project-index={idx}
+                data-proj-card={idx}
+              >
+                <ProjectCard {...project} index={idx} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right Lateral Button (brings 1 project at a time) -->
+        <button
+          type="button"
+          id="projects-next"
+          aria-label="Próximo projeto"
+          class="project-nav-btn shrink-0"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Subtle Bottom Pagination Status -->
+      <div data-proj-el="4" class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[13px] text-[var(--dim)]">
+        <span>Passe o cursor sobre um projeto para destacar ou use as setas laterais</span>
+        <span id="projects-counter" class="font-medium text-[#faf8f5] tabular-nums">
+          <span class="text-[#ff5500]" id="projects-current-idx">01</span> / 0{PROJECTS.length}
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -111,7 +123,7 @@ import { PROJECTS } from '../../data/projects';
       }
 
       const gap = window.innerWidth >= 960 ? 24 : 16;
-      const viewportWidth = viewport.clientWidth - 16; // account for px-2 (8px * 2)
+      const viewportWidth = viewport.clientWidth - 16;
       const cardWidth = (viewportWidth - gap * (visible - 1)) / visible;
 
       track.style.setProperty('--card-gap', `${gap}px`);
@@ -141,7 +153,6 @@ import { PROJECTS } from '../../data/projects';
       updateCarousel();
     });
 
-    // Touch swipe support for mobile
     let touchStartX = 0;
     viewport.addEventListener(
       'touchstart',
