@@ -13,97 +13,180 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
     aria-hidden="true"
   ></div>
 
-  <!-- Editorial Meta Band with Full-Width 1px Hairline -->
-  <div class="container-ed grid-12 pt-[clamp(88px,12vh,128px)] pb-5 relative z-10">
-    <div class="col-span-12 md:col-span-4 max-w-[320px] space-y-3" data-hero-fade>
-      <p class="p-ed white">Como trabalho</p>
-      <p class="p-ed">
-        Desenvolvo experiências digitais onde direção visual, engenharia de software e velocidade operam como um único sistema.
-      </p>
-      <p class="p-ed">
-        Sem excesso de efeitos que distraem o seu cliente. Clareza imediata do primeiro segundo ao contato comercial.
-      </p>
-    </div>
-
-    <div class="col-span-12 md:col-span-4 md:col-start-7 max-w-[350px] flex flex-col justify-between gap-6 mt-6 md:mt-0" data-hero-fade>
-      <div class="space-y-1.5">
-        <p class="p-ed white">Gustavo Rodrigues · Alfenas, MG</p>
-        <p class="p-ed">
-          Engenheiro de software e consultor independente. Sites de alta conversão, sistemas sob medida e automações inteligentes.
-        </p>
-      </div>
-      <p class="p-ed white inline-flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#ff5500]" aria-hidden="true"></span>
-        <span>Agenda aberta para novos projetos</span>
-      </p>
-    </div>
-
-    <!-- Bottom Hairline -->
-    <div class="col-span-12 h-px bg-[var(--line)] mt-2"></div>
-  </div>
-
-  <!-- Scroll Cue (Bottom Right) -->
-  <div class="scroll-cue" id="hero-scroll-cue" aria-hidden="true">
-    <span>Scroll</span>
-    <i></i>
-  </div>
-
-  <!-- Main Asymmetric Editorial Stage -->
-  <div class="container-ed grid-12 flex-1 items-end pb-[var(--gutter)] pt-[clamp(16px,2.5vh,36px)] relative z-10">
-    <!-- Left Column: Featured Case Anchor (Enki .hero-case pattern) -->
-    <a
-      href="#projetos"
-      id="hero-case-preview"
-      class="col-span-12 md:col-span-4 self-end flex flex-col gap-2.5 w-full max-w-[280px] group order-2 md:order-1 mt-8 md:mt-0"
-    >
-      <div class="aspect-[16/10] w-full overflow-hidden border border-[var(--line)] bg-[#121212] relative transition-transform duration-700 ease-[var(--ease)] group-hover:scale-[0.97]">
-        <!-- Architectural Mini Preview of CSF Steel Frame -->
-        <div class="absolute inset-0 p-3.5 flex flex-col justify-between bg-[radial-gradient(80%_80%_at_80%_20%,rgba(255,85,0,0.18),transparent_70%),linear-gradient(160deg,#181716,#0d0d0d)]">
-          <div class="flex items-center justify-between text-[10px] text-[var(--dim)] border-b border-[var(--line)] pb-1.5">
-            <span>01 / CSF Steel Frame</span>
-            <span class="text-[#ff5500]">0.6s LCP</span>
+  <div class="container-ed relative z-10 flex-1 flex flex-col justify-between pt-[clamp(96px,13vh,136px)] pb-[clamp(28px,4vh,48px)] gap-10">
+    <!-- Main Unified Hero Stage (image_4 architecture) -->
+    <div class="grid-12 items-center my-auto gap-y-12">
+      <!-- Left Column: Identity Logo, Strong Phrase, Simple Description, Immediate CTAs -->
+      <div
+        id="hero-title-block"
+        class="col-span-12 lg:col-span-6 flex flex-col items-start gap-6"
+      >
+        <!-- Brand / Logo Lockup -->
+        <div class="inline-flex items-center gap-3.5">
+          <div class="w-10 h-10 border border-[var(--line)] bg-[#111111] flex items-center justify-center text-[16px] font-medium tracking-[-0.05em] text-[#faf8f5]">
+            <span>GR</span><span class="text-[#ff5500]">.</span>
           </div>
-          <div class="space-y-1">
-            <div class="text-[13px] font-medium text-[#faf8f5] tracking-[-0.02em] leading-tight">
-              Catálogo Estrutural &amp; Vitrine de Chalés
-            </div>
-            <div class="h-1 w-12 bg-[#ff5500]"></div>
+          <div class="flex flex-col">
+            <span class="text-[14px] font-medium tracking-[-0.02em] text-[#faf8f5] leading-tight">
+              Gustavo Rodrigues
+            </span>
+            <span class="text-[12px] tracking-[-0.01em] text-[var(--dim)] leading-tight mt-0.5">
+              Engenharia de Software &amp; Experiências Digitais
+            </span>
           </div>
         </div>
-      </div>
-      <div class="flex items-center justify-between text-[14px] font-medium text-[#faf8f5] tracking-[-0.02em]">
-        <span>Ver projetos entregues</span>
-        <span class="text-[#ff5500] transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-      </div>
-    </a>
 
-    <!-- Right Column: Monumental Display Headline & Line CTA -->
-    <div
-      id="hero-title-block"
-      class="col-span-12 md:col-span-6 md:col-start-7 flex flex-col justify-between gap-8 md:gap-12 self-stretch order-1 md:order-2"
-    >
-      <h1 class="h1-ed max-w-[12ch]" aria-label="O site que eleva o patamar do seu negócio.">
-        <span class="line-mask"><span class="line-inner">O site que eleva</span></span>
-        <span class="line-mask"><span class="line-inner">o patamar do</span></span>
-        <span class="line-mask"><span class="line-inner"><em class="serif-italic font-normal text-[#faf8f5]">seu negócio.</em></span></span>
-      </h1>
+        <!-- Monumental Headline -->
+        <h1 class="h1-ed max-w-[12ch]" aria-label="O site que eleva o patamar do seu negócio.">
+          <span class="line-mask"><span class="line-inner">O site que eleva</span></span>
+          <span class="line-mask"><span class="line-inner">o patamar do</span></span>
+          <span class="line-mask"><span class="line-inner"><em class="serif-italic font-normal text-[#faf8f5]">seu negócio.</em></span></span>
+        </h1>
 
-      <div class="flex flex-col gap-4 max-w-[320px]">
-        <p class="p-ed">
-          Sua presença online deve transmitir a mesma solidez e autoridade que a sua empresa entrega no mundo real.
+        <!-- Simple Description -->
+        <p class="p-ed max-w-[48ch]">
+          Experiências digitais personalizadas, sistemas sob medida e automações para profissionais e empresas que querem transformar presença online em credibilidade e vendas.
         </p>
+
+        <!-- Immediate CTAs -->
+        <div class="flex flex-wrap items-center gap-3.5 pt-1">
+          <a
+            href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="pill-button"
+          >
+            <span class="roll">
+              <span class="roll-a">Iniciar um projeto</span>
+              <span class="roll-b" aria-hidden="true">Iniciar um projeto</span>
+            </span>
+          </a>
+
+          <a
+            href="#projetos"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-[var(--line)] bg-[#111111] text-[#faf8f5] text-[clamp(14px,1vw,16px)] font-medium tracking-[-0.02em] hover:border-[#ff5500] transition-colors"
+          >
+            <span class="roll">
+              <span class="roll-a">Ver projetos</span>
+              <span class="roll-b" aria-hidden="true">Ver projetos</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Fanned Snippets of Works -->
+      <div
+        id="hero-case-preview"
+        class="col-span-12 lg:col-span-6 relative min-h-[290px] sm:min-h-[360px] flex items-center justify-center"
+      >
         <a
-          href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vim%20pelo%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto."
-          target="_blank"
-          rel="noopener noreferrer"
-          class="line-link"
+          href="#projetos"
+          class="relative w-full max-w-[520px] h-[270px] sm:h-[330px] block group"
+          aria-label="Explorar projetos em destaque"
         >
-          <span class="roll">
-            <span class="roll-a">Iniciar conversa no WhatsApp</span>
-            <span class="roll-b" aria-hidden="true">Iniciar conversa no WhatsApp</span>
-          </span>
-          <span class="text-[#ff5500] text-sm">↗</span>
+          <!-- Card 3 (Back-Right Snippet) -->
+          <div class="browser-window absolute right-0 top-0 w-[72%] sm:w-[68%] rotate-[4deg] translate-x-2 sm:translate-x-4 opacity-75 transition-transform duration-500 ease-[var(--ease)] group-hover:rotate-[6deg] group-hover:translate-x-6 group-hover:-translate-y-1">
+            <div class="browser-chrome">
+              <div class="browser-dots"><i></i><i></i><i></i></div>
+              <span class="browser-url">sisapec.health</span>
+              <span class="text-[10px] text-[#ff5500]">SISTEMA</span>
+            </div>
+            <div class="aspect-[16/10] p-4 flex flex-col justify-between bg-[radial-gradient(80%_80%_at_80%_20%,rgba(255,85,0,0.16),transparent_65%),linear-gradient(155deg,#1c1917,#0d0d0e)]">
+              <div class="flex justify-between items-center text-[10px] text-[var(--dim)] border-b border-[var(--line)] pb-1.5">
+                <span>03 / Telemetria &amp; Saúde</span>
+                <span class="text-[#ff5500]">80k+ Usuários</span>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs sm:text-sm font-medium text-[#faf8f5] tracking-[-0.02em]">
+                  Prontuário &amp; Sinais Vitais
+                </div>
+                <div class="text-[10px] text-[var(--grey)]">
+                  Arquitetura crítica de alta disponibilidade
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 (Middle Snippet) -->
+          <div class="browser-window absolute left-[12%] top-[16%] w-[74%] sm:w-[70%] -rotate-[1.5deg] opacity-90 transition-transform duration-500 ease-[var(--ease)] group-hover:rotate-[0deg] group-hover:-translate-y-1.5 z-10">
+            <div class="browser-chrome">
+              <div class="browser-dots"><i></i><i></i><i></i></div>
+              <span class="browser-url">aurorabookstore.app</span>
+              <span class="text-[10px] text-[#ff5500]">PLATAFORMA</span>
+            </div>
+            <div class="aspect-[16/10] p-4 flex flex-col justify-between bg-[radial-gradient(80%_80%_at_20%_20%,rgba(255,85,0,0.16),transparent_65%),linear-gradient(155deg,#161514,#0b0b0c)]">
+              <div class="flex justify-between items-center text-[10px] text-[var(--dim)] border-b border-[var(--line)] pb-1.5">
+                <span>02 / E-Commerce Digital</span>
+                <span class="text-[#ff5500]">Full-Stack</span>
+              </div>
+              <div class="space-y-1">
+                <div class="text-xs sm:text-sm font-medium text-[#faf8f5] tracking-[-0.02em]">
+                  Aurora Editorial &amp; Checkout
+                </div>
+                <div class="text-[10px] text-[var(--grey)]">
+                  Busca instantânea e gestão em tempo real
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 1 (Front-Left Main Snippet) -->
+          <div class="browser-window absolute left-0 bottom-0 w-[78%] sm:w-[74%] -rotate-[4deg] transition-all duration-500 ease-[var(--ease)] group-hover:-rotate-[2deg] group-hover:scale-[1.02] group-hover:border-[#ff5500] z-20">
+            <div class="browser-chrome">
+              <div class="browser-dots"><i></i><i></i><i></i></div>
+              <span class="browser-url">csfsteelframe.com.br</span>
+              <span class="text-[10px] text-[#ff5500]">0.6s LCP</span>
+            </div>
+            <div class="aspect-[16/10] p-4 sm:p-5 flex flex-col justify-between bg-[radial-gradient(85%_85%_at_85%_15%,rgba(255,85,0,0.22),transparent_65%),linear-gradient(145deg,#171513,#0b0b0c)]">
+              <div class="flex justify-between items-center text-[10px] text-[var(--dim)] border-b border-[var(--line)] pb-2">
+                <span class="text-[#faf8f5] font-medium">01 / CSF Steel Frame</span>
+                <span class="text-[#ff5500]">100 CWV</span>
+              </div>
+              <div class="space-y-1.5 my-auto py-1">
+                <div class="text-sm sm:text-base font-medium text-[#faf8f5] tracking-[-0.025em] leading-snug">
+                  Catálogo Estrutural &amp; Vitrine de Chalés
+                </div>
+                <p class="text-[11px] text-[var(--grey)] leading-snug">
+                  Páginas ultra-rápidas conectadas direto ao WhatsApp comercial.
+                </p>
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[10px]">
+                <span class="text-[var(--dim)]">Alta conversão</span>
+                <span class="text-[#ff5500] font-medium">Ver projetos ↓</span>
+              </div>
+            </div>
+          </div>
         </a>
+      </div>
+    </div>
+
+    <!-- Bottom Proof Bar (Projects | Attendance Range | Direct Contact) -->
+    <div class="w-full border border-[var(--line)] bg-[#111111]/90 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--line)]">
+      <div class="px-6 py-5 sm:px-8 sm:py-6">
+        <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5] tabular-nums">
+          +10 projetos
+        </strong>
+        <span class="block mt-1 text-[13px] text-[var(--dim)]">
+          entregues para diferentes nichos
+        </span>
+      </div>
+
+      <div class="px-6 py-5 sm:px-8 sm:py-6">
+        <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5]">
+          Todo o Brasil
+        </strong>
+        <span class="block mt-1 text-[13px] text-[var(--dim)]">
+          atendimento próximo e 100% online
+        </span>
+      </div>
+
+      <div class="px-6 py-5 sm:px-8 sm:py-6">
+        <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5]">
+          Direto
+        </strong>
+        <span class="block mt-1 text-[13px] text-[var(--dim)]">
+          sem agência, sem intermediários
+        </span>
       </div>
     </div>
   </div>
