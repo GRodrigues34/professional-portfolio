@@ -249,7 +249,7 @@ a:focus-visible .roll-b {
   background: #ff6a1f;
 }
 
-/* Floating bar that appears after scrolling past hero */
+/* Fixed top navigation bar (always visible) */
 .floating-bar {
   position: fixed;
   top: 0;
@@ -263,12 +263,6 @@ a:focus-visible .roll-b {
   background: rgba(10, 10, 10, 0.86);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
-  transform: translateY(-130%);
-  transition: transform 0.75s var(--ease);
-}
-
-.floating-bar.is-visible {
-  transform: translateY(0);
 }
 
 /* Hero Scroll Cue */
