@@ -1,0 +1,42 @@
+---
+import type { ProjectItem } from '../data/projects';
+
+export interface Props extends ProjectItem {
+  index?: number;
+}
+
+const { title, description, image, href = '#contato' } = Astro.props;
+---
+
+<article class="project-card group h-full flex flex-col">
+  <a
+    href={href}
+    class="flex flex-col h-full focus:outline-none"
+    aria-label={`Ver projeto ${title}`}
+  >
+    <!-- Project Image Container -->
+    <div class="aspect-[16/10] w-full overflow-hidden bg-[#161514] border-b border-[var(--line)] relative">
+      <img
+        src={image}
+        alt={`Prévia do projeto ${title}`}
+        width="800"
+        height="500"
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover transition-transform duration-500 ease-[var(--ease)] group-hover:scale-[1.04]"
+      />
+    </div>
+
+    <!-- Project Title & Short Description -->
+    <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-3 bg-[#111111]">
+      <div class="space-y-2.5">
+        <h3 class="text-[clamp(20px,1.5vw,24px)] font-medium tracking-[-0.03em] text-[#faf8f5] leading-snug transition-colors duration-300 group-hover:text-[#ff5500]">
+          {title}
+        </h3>
+        <p class="p-ed">
+          {description}
+        </p>
+      </div>
+    </div>
+  </a>
+</article>

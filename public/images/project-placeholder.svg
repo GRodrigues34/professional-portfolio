@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <defs>
+    <radialGradient id="studioGlow" cx="82%" cy="18%" r="75%">
+      <stop offset="0%" stop-color="#ff5500" stop-opacity="0.22" />
+      <stop offset="65%" stop-color="#ff5500" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="surfaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#171514" />
+      <stop offset="100%" stop-color="#0c0c0d" />
+    </linearGradient>
+    <pattern id="archGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#faf8f5" stroke-opacity="0.045" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Base Surface -->
+  <rect width="800" height="500" fill="url(#surfaceGrad)" />
+  <rect width="800" height="500" fill="url(#studioGlow)" />
+  <rect width="800" height="500" fill="url(#archGrid)" />
+
+  <!-- Architectural Inner Window Frame -->
+  <rect x="48" y="44" width="704" height="412" rx="8" fill="#101011" stroke="#faf8f5" stroke-opacity="0.14" stroke-width="1" />
+
+  <!-- Window Top Chrome -->
+  <rect x="48" y="44" width="704" height="38" rx="8" fill="#161618" />
+  <line x1="48" y1="82" x2="752" y2="82" stroke="#faf8f5" stroke-opacity="0.12" stroke-width="1" />
+  <circle cx="72" cy="63" r="4.5" fill="#ff5500" />
+  <circle cx="88" cy="63" r="4.5" fill="#faf8f5" fill-opacity="0.22" />
+  <circle cx="104" cy="63" r="4.5" fill="#faf8f5" fill-opacity="0.22" />
+  <rect x="330" y="57" width="140" height="12" rx="6" fill="#faf8f5" fill-opacity="0.08" />
+
+  <!-- Editorial Layout Wireframe Inside Window -->
+  <rect x="88" y="122" width="96" height="10" rx="2" fill="#ff5500" fill-opacity="0.85" />
+  <rect x="88" y="150" width="320" height="28" rx="3" fill="#faf8f5" fill-opacity="0.9" />
+  <rect x="88" y="190" width="260" height="28" rx="3" fill="#faf8f5" fill-opacity="0.45" />
+  <rect x="88" y="238" width="290" height="10" rx="2" fill="#faf8f5" fill-opacity="0.25" />
+  <rect x="88" y="258" width="240" height="10" rx="2" fill="#faf8f5" fill-opacity="0.25" />
+
+  <!-- CTA Pill Wireframe -->
+  <rect x="88" y="302" width="132" height="34" rx="17" fill="#ff5500" />
+
+  <!-- Right Preview Module -->
+  <rect x="456" y="122" width="256" height="214" rx="4" fill="#151413" stroke="#ff5500" stroke-opacity="0.35" stroke-width="1" />
+  <line x1="456" y1="162" x2="712" y2="162" stroke="#faf8f5" stroke-opacity="0.1" stroke-width="1" />
+  <rect x="476" y="138" width="84" height="8" rx="2" fill="#faf8f5" fill-opacity="0.35" />
+  <circle cx="690" cy="142" r="4" fill="#ff5500" />
+  <rect x="476" y="184" width="216" height="82" rx="3" fill="#ff5500" fill-opacity="0.1" stroke="#faf8f5" stroke-opacity="0.1" />
+  <rect x="476" y="284" width="140" height="10" rx="2" fill="#faf8f5" fill-opacity="0.5" />
+  <rect x="476" y="304" width="90" height="8" rx="2" fill="#faf8f5" fill-opacity="0.25" />
+
+  <!-- Bottom Divider & Metrics -->
+  <line x1="88" y1="382" x2="712" y2="382" stroke="#faf8f5" stroke-opacity="0.12" stroke-width="1" />
+  <rect x="88" y="404" width="110" height="10" rx="2" fill="#faf8f5" fill-opacity="0.3" />
+  <rect x="340" y="404" width="110" height="10" rx="2" fill="#faf8f5" fill-opacity="0.3" />
+  <rect x="622" y="404" width="90" height="10" rx="2" fill="#ff5500" fill-opacity="0.7" />
+</svg>

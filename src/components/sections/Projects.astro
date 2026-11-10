@@ -1,339 +1,170 @@
 ---
+import ProjectCard from '../ProjectCard.astro';
+import { PROJECTS } from '../../data/projects';
 ---
 
-<section id="projetos" aria-label="Projetos selecionados">
-  <!-- Editorial Lead-In Header (Enki .services-top-grid pattern) -->
-  <div class="container-ed grid-12 items-end pt-[clamp(96px,13vh,170px)] pb-[clamp(48px,7vh,96px)] border-t border-[var(--line)]">
-    <div class="col-span-12 md:col-span-3">
-      <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
+<section
+  id="projetos"
+  aria-label="Projetos selecionados"
+  class="pt-[clamp(48px,6vh,80px)] pb-[clamp(72px,11vh,140px)] bg-[#0a0a0a] border-t border-[var(--line)]"
+>
+  <div class="container-ed space-y-10">
+    <!-- Compact Editorial Lead-In Header -->
+    <div class="grid-12 items-end gap-y-4">
+      <div class="col-span-12 md:col-span-3">
+        <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
+      </div>
+      <h2 class="col-span-12 md:col-span-5 h2-ed">
+        Trabalhos que <span class="serif-italic font-normal text-[var(--grey)]">falam</span> por si.
+      </h2>
+      <div class="col-span-12 md:col-span-4 max-w-[360px]">
+        <p class="p-ed">
+          Sistemas, sites e automações reais construídos sob medida para gerar autoridade, velocidade e resultado operacional.
+        </p>
+      </div>
     </div>
-    <h2 class="col-span-12 md:col-span-5 h2-ed">
-      Trabalhos que <span class="serif-italic font-normal text-[var(--grey)]">falam</span> por si.
-    </h2>
-    <div class="col-span-12 md:col-span-4 max-w-[360px]">
-      <p class="p-ed">
-        Antes de falar sobre metodologia ou preços, veja sistemas e páginas reais construídos sob medida para gerar autoridade, velocidade e resultado operacional.
-      </p>
+
+    <!-- Side-by-Side Carousel Panel with Lateral Navigation Buttons -->
+    <div class="relative flex items-center gap-3 sm:gap-5">
+      <!-- Left Lateral Button (brings 1 project at a time) -->
+      <button
+        type="button"
+        id="projects-prev"
+        aria-label="Projeto anterior"
+        class="project-nav-btn shrink-0"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
+
+      <!-- Carousel Viewport (3 projects on desktop, 1 on phone) -->
+      <div
+        id="projects-viewport"
+        class="w-full overflow-hidden py-5 px-2 -mx-2"
+      >
+        <div
+          id="projects-track"
+          class="flex transition-transform duration-500 ease-[var(--ease)]"
+          style="--cards-per-view: 1; --card-gap: 24px; gap: var(--card-gap);"
+        >
+          {PROJECTS.map((project, idx) => (
+            <div
+              class="project-carousel-item shrink-0"
+              data-project-index={idx}
+            >
+              <ProjectCard {...project} index={idx} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Lateral Button (brings 1 project at a time) -->
+      <button
+        type="button"
+        id="projects-next"
+        aria-label="Próximo projeto"
+        class="project-nav-btn shrink-0"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
     </div>
-  </div>
 
-  <!-- Sticky Stacking Slides Stage (Enki .slides + Diogo .browser-window) -->
-  <div class="slides-stage">
-    <!-- SLIDE 01: CSF Steel Frame -->
-    <article class="project-slide" data-slide-index="0">
-      <div class="project-slide-inner bg-[#111111] text-[#faf8f5]">
-        <div class="container-ed h-full flex flex-col justify-between py-[var(--gutter)]">
-          <!-- Slide Header -->
-          <div class="flex justify-between items-start gap-6 pt-6 md:pt-10">
-            <h3 class="text-[clamp(40px,7.2vw,112px)] font-medium leading-[0.86] tracking-[-0.055em]">
-              CSF Steel Frame<br />
-              <span class="serif-italic font-normal text-[var(--grey)]">&amp; Chalés.</span>
-            </h3>
-            <span class="text-[clamp(44px,8vw,120px)] font-medium leading-[0.85] tracking-[-0.06em] text-[rgba(250,248,245,0.22)]">
-              01
-            </span>
-          </div>
-
-          <!-- Slide Body (12-Column Editorial + Browser Window) -->
-          <div class="grid-12 items-start pt-6 border-t border-[var(--line)]">
-            <!-- Col 1-2: Niche & Metrics -->
-            <div class="col-span-12 md:col-span-2 space-y-4">
-              <div>
-                <p class="p-ed white">Setor</p>
-                <p class="p-ed">Construção a Seco &amp; Indústria</p>
-              </div>
-              <div>
-                <p class="p-ed white">Performance</p>
-                <p class="p-ed text-[#ff5500]">0.6s LCP · 100 CWV</p>
-              </div>
-              <div>
-                <p class="p-ed white">Arquitetura</p>
-                <p class="p-ed">Astro · Tailwind CSS</p>
-              </div>
-            </div>
-
-            <!-- Col 3-6: Narrative & CTA -->
-            <div class="col-span-12 md:col-span-4 md:col-start-3 flex flex-col justify-between gap-6">
-              <div class="space-y-4 max-w-[400px]">
-                <p class="p-ed white">
-                  Catálogo técnico de perfis estruturais e vitrine imersiva de chalés modulares projetados para captação comercial imediata.
-                </p>
-                <p class="p-ed">
-                  Substituiu a navegação lenta por páginas estáticas pré-renderizadas que abrem instantaneamente no 4G de engenheiros e compradores, conectando cada produto direto ao WhatsApp da equipe de vendas.
-                </p>
-              </div>
-
-              <a
-                href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vi%20o%20projeto%20da%20CSF%20Steel%20Frame%20e%20quero%20um%20site%20nesse%20padr%C3%A3o."
-                target="_blank"
-                rel="noopener noreferrer"
-                class="line-link"
-              >
-                <span class="roll">
-                  <span class="roll-a">Quero um projeto nesse padrão</span>
-                  <span class="roll-b" aria-hidden="true">Quero um projeto nesse padrão</span>
-                </span>
-                <span class="text-[#ff5500]">↗</span>
-              </a>
-            </div>
-
-            <!-- Col 7-13: Diogo-style Browser Frame Preview -->
-            <div class="col-span-12 md:col-span-6 md:col-start-7">
-              <div class="browser-window group">
-                <div class="browser-chrome">
-                  <div class="browser-dots"><i></i><i></i><i></i></div>
-                  <span class="browser-url">csfsteelframe.com.br</span>
-                  <span class="text-[10px] text-[#ff5500]">ONLINE</span>
-                </div>
-                <div class="aspect-[16/9] p-6 sm:p-8 flex flex-col justify-between bg-[radial-gradient(90%_90%_at_85%_15%,rgba(255,85,0,0.22),transparent_65%),linear-gradient(145deg,#171513_0%,#0c0c0d_100%)] relative overflow-hidden">
-                  <!-- Architectural wireframe grid lines inside mockup -->
-                  <div class="flex items-center justify-between border-b border-[rgba(250,248,245,0.1)] pb-3">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-[#ff5500]"></span>
-                      <span class="text-xs font-semibold tracking-tight text-[#faf8f5]">CSF STEEL FRAME</span>
-                    </div>
-                    <div class="flex gap-4 text-[11px] text-[var(--dim)]">
-                      <span>Perfis Drywall</span>
-                      <span>Chalés</span>
-                      <span>Isolamento</span>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-12 gap-4 items-end my-auto py-2">
-                    <div class="col-span-7 space-y-2">
-                      <span class="text-[10px] uppercase tracking-widest text-[#ff5500]">Engenharia Estrutural</span>
-                      <div class="text-xl sm:text-2xl font-medium text-[#faf8f5] leading-none tracking-[-0.03em]">
-                        Construção seca de alta precisão.
-                      </div>
-                      <p class="text-[11px] text-[var(--grey)] leading-snug">
-                        Perfis galvanizados NBR 15253 e kits completos para obras rápidas.
-                      </p>
-                    </div>
-                    <div class="col-span-5 border border-[rgba(255,85,0,0.3)] bg-[#141312] p-3 space-y-2">
-                      <div class="flex justify-between text-[10px] text-[var(--dim)]">
-                        <span>CHALÉ ALPINO M1</span>
-                        <span class="text-[#ff5500]">48m²</span>
-                      </div>
-                      <div class="h-12 border border-[var(--line)] bg-[linear-gradient(135deg,rgba(255,85,0,0.15),transparent)] flex items-end p-1.5">
-                        <span class="text-[9px] text-[#faf8f5]">Estrutura 100% Steel Frame</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between pt-3 border-t border-[rgba(250,248,245,0.1)] text-[11px]">
-                    <span class="text-[var(--dim)]">Catálogo interativo + Orçamento WhatsApp</span>
-                    <span class="text-[#faf8f5] font-medium">LCP: 580ms</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-slide-shade" aria-hidden="true"></div>
-      </div>
-    </article>
-
-    <!-- SLIDE 02: Aurora Bookstore -->
-    <article class="project-slide" data-slide-index="1">
-      <div class="project-slide-inner bg-[#161514] text-[#faf8f5]">
-        <div class="container-ed h-full flex flex-col justify-between py-[var(--gutter)]">
-          <!-- Slide Header -->
-          <div class="flex justify-between items-start gap-6 pt-6 md:pt-10">
-            <h3 class="text-[clamp(40px,7.2vw,112px)] font-medium leading-[0.86] tracking-[-0.055em]">
-              Aurora<br />
-              <span class="serif-italic font-normal text-[var(--grey)]">Bookstore.</span>
-            </h3>
-            <span class="text-[clamp(44px,8vw,120px)] font-medium leading-[0.85] tracking-[-0.06em] text-[rgba(250,248,245,0.22)]">
-              02
-            </span>
-          </div>
-
-          <!-- Slide Body -->
-          <div class="grid-12 items-start pt-6 border-t border-[var(--line)]">
-            <div class="col-span-12 md:col-span-2 space-y-4">
-              <div>
-                <p class="p-ed white">Setor</p>
-                <p class="p-ed">E-Commerce &amp; Plataforma Digital</p>
-              </div>
-              <div>
-                <p class="p-ed white">Recursos</p>
-                <p class="p-ed text-[#ff5500]">Auth · Busca · Checkout</p>
-              </div>
-              <div>
-                <p class="p-ed white">Arquitetura</p>
-                <p class="p-ed">React · TypeScript · API REST</p>
-              </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-4 md:col-start-3 flex flex-col justify-between gap-6">
-              <div class="space-y-4 max-w-[400px]">
-                <p class="p-ed white">
-                  Ecossistema completo de livraria digital com curadoria editorial, busca instantânea e gestão transacional de pedidos.
-                </p>
-                <p class="p-ed">
-                  Desenvolvido com foco em experiência de leitura, autenticação segura de clientes, recuperação de estado de carrinho e painel administrativo para controle de estoque em tempo real.
-                </p>
-              </div>
-
-              <a
-                href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vi%20a%20plataforma%20Aurora%20Bookstore%20e%20gostaria%20de%20or%C3%A7ar%20um%20sistema%20web."
-                target="_blank"
-                rel="noopener noreferrer"
-                class="line-link"
-              >
-                <span class="roll">
-                  <span class="roll-a">Consultar sistema semelhante</span>
-                  <span class="roll-b" aria-hidden="true">Consultar sistema semelhante</span>
-                </span>
-                <span class="text-[#ff5500]">↗</span>
-              </a>
-            </div>
-
-            <div class="col-span-12 md:col-span-6 md:col-start-7">
-              <div class="browser-window">
-                <div class="browser-chrome">
-                  <div class="browser-dots"><i></i><i></i><i></i></div>
-                  <span class="browser-url">aurorabookstore.app</span>
-                  <span class="text-[10px] text-[#ff5500]">FULL-STACK</span>
-                </div>
-                <div class="aspect-[16/9] p-6 sm:p-8 flex flex-col justify-between bg-[radial-gradient(80%_80%_at_20%_20%,rgba(255,85,0,0.16),transparent_65%),linear-gradient(155deg,#181615_0%,#0b0b0c_100%)]">
-                  <div class="flex items-center justify-between border-b border-[rgba(250,248,245,0.1)] pb-3">
-                    <span class="serif-italic text-lg text-[#faf8f5]">Aurora Editorial</span>
-                    <div class="flex items-center gap-3 text-[11px] text-[var(--dim)]">
-                      <span>Acervo (2.4k)</span>
-                      <span class="px-2 py-0.5 border border-[var(--line)] text-[#faf8f5]">Carrinho (2)</span>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-3 my-auto py-2">
-                    <div class="border border-[var(--line)] bg-[#111112] p-3 space-y-1.5">
-                      <div class="text-[9px] text-[#ff5500]">ARQUITETURA</div>
-                      <div class="text-xs font-medium text-[#faf8f5]">The Elements of Style</div>
-                      <div class="text-[11px] text-[var(--dim)]">R$ 84,00</div>
-                    </div>
-                    <div class="border border-[rgba(255,85,0,0.4)] bg-[#151312] p-3 space-y-1.5">
-                      <div class="text-[9px] text-[#ff5500]">DESTAQUE</div>
-                      <div class="text-xs font-medium text-[#faf8f5]">Sistemas Distribuídos</div>
-                      <div class="text-[11px] text-[#faf8f5]">R$ 129,00</div>
-                    </div>
-                    <div class="border border-[var(--line)] bg-[#111112] p-3 space-y-1.5">
-                      <div class="text-[9px] text-[var(--dim)]">DESIGN</div>
-                      <div class="text-xs font-medium text-[#faf8f5]">Grid Systems</div>
-                      <div class="text-[11px] text-[var(--dim)]">R$ 160,00</div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between pt-3 border-t border-[rgba(250,248,245,0.1)] text-[11px]">
-                    <span class="text-[var(--dim)]">Catálogo reativo + OAuth 2.0 + Painel Admin</span>
-                    <span class="text-[#ff5500]">99.9% Uptime</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-slide-shade" aria-hidden="true"></div>
-      </div>
-    </article>
-
-    <!-- SLIDE 03: SisAPEC Healthcare -->
-    <article class="project-slide" data-slide-index="2">
-      <div class="project-slide-inner bg-[#1c1917] text-[#faf8f5]">
-        <div class="container-ed h-full flex flex-col justify-between py-[var(--gutter)]">
-          <!-- Slide Header -->
-          <div class="flex justify-between items-start gap-6 pt-6 md:pt-10">
-            <h3 class="text-[clamp(40px,7.2vw,112px)] font-medium leading-[0.86] tracking-[-0.055em]">
-              SisAPEC<br />
-              <span class="serif-italic font-normal text-[var(--grey)]">Healthcare.</span>
-            </h3>
-            <span class="text-[clamp(44px,8vw,120px)] font-medium leading-[0.85] tracking-[-0.06em] text-[rgba(250,248,245,0.22)]">
-              03
-            </span>
-          </div>
-
-          <!-- Slide Body -->
-          <div class="grid-12 items-start pt-6 border-t border-[var(--line)]">
-            <div class="col-span-12 md:col-span-2 space-y-4">
-              <div>
-                <p class="p-ed white">Setor</p>
-                <p class="p-ed">Saúde Pública &amp; Telemetria</p>
-              </div>
-              <div>
-                <p class="p-ed white">Escala Real</p>
-                <p class="p-ed text-[#ff5500]">80.000+ Pacientes</p>
-              </div>
-              <div>
-                <p class="p-ed white">Padrão</p>
-                <p class="p-ed">HL7 FHIR · Java · Wearables</p>
-              </div>
-            </div>
-
-            <div class="col-span-12 md:col-span-4 md:col-start-3 flex flex-col justify-between gap-6">
-              <div class="space-y-4 max-w-[400px]">
-                <p class="p-ed white">
-                  Módulos clínicos de prontuário eletrônico e ingestão de sinais vitais via smartwatches operando em ambiente crítico de saúde.
-                </p>
-                <p class="p-ed">
-                  Interoperabilidade estruturada no padrão internacional HL7 FHIR para captura contínua de frequência cardíaca, SpO2 e anamnese clínica, comprovando maturidade de engenharia para sistemas de alta responsabilidade.
-                </p>
-              </div>
-
-              <a
-                href="https://wa.me/5535984788359?text=Ol%C3%A1%20Gustavo!%20Vi%20sua%20experi%C3%AAncia%20no%20SisAPEC%20e%20quero%20discutir%20um%20sistema%20sob%20medida."
-                target="_blank"
-                rel="noopener noreferrer"
-                class="line-link"
-              >
-                <span class="roll">
-                  <span class="roll-a">Discutir engenharia sob medida</span>
-                  <span class="roll-b" aria-hidden="true">Discutir engenharia sob medida</span>
-                </span>
-                <span class="text-[#ff5500]">↗</span>
-              </a>
-            </div>
-
-            <div class="col-span-12 md:col-span-6 md:col-start-7">
-              <div class="browser-window">
-                <div class="browser-chrome">
-                  <div class="browser-dots"><i></i><i></i><i></i></div>
-                  <span class="browser-url">sisapec.health / fhir-telemetry</span>
-                  <span class="text-[10px] text-[#ff5500]">HL7 FHIR R4</span>
-                </div>
-                <div class="aspect-[16/9] p-6 sm:p-8 flex flex-col justify-between bg-[radial-gradient(85%_85%_at_75%_20%,rgba(255,85,0,0.2),transparent_65%),linear-gradient(155deg,#191614_0%,#0a0a0b_100%)]">
-                  <div class="flex items-center justify-between border-b border-[rgba(250,248,245,0.1)] pb-3">
-                    <span class="text-xs font-medium text-[#faf8f5]">Telemetria Clínica &amp; Anamnese</span>
-                    <span class="text-[11px] text-[#ff5500]">80k+ Prontuários Ativos</span>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-3 my-auto py-2">
-                    <div class="border border-[var(--line)] bg-[#121110] p-3">
-                      <div class="text-[10px] text-[var(--dim)]">FREQUÊNCIA CARDÍACA</div>
-                      <div class="text-xl font-medium text-[#faf8f5] mt-1">74 <span class="text-xs text-[#ff5500]">bpm</span></div>
-                      <div class="text-[10px] text-[var(--dim)] mt-1">Galaxy Watch · Sync OK</div>
-                    </div>
-                    <div class="border border-[var(--line)] bg-[#121110] p-3">
-                      <div class="text-[10px] text-[var(--dim)]">SATURAÇÃO SpO2</div>
-                      <div class="text-xl font-medium text-[#faf8f5] mt-1">98 <span class="text-xs text-[#ff5500]">%</span></div>
-                      <div class="text-[10px] text-[var(--dim)] mt-1">Observation FHIR</div>
-                    </div>
-                    <div class="border border-[var(--line)] bg-[#121110] p-3">
-                      <div class="text-[10px] text-[var(--dim)]">LATÊNCIA INGESTÃO</div>
-                      <div class="text-xl font-medium text-[#ff5500] mt-1">&lt; 180ms</div>
-                      <div class="text-[10px] text-[var(--dim)] mt-1">Integridade Verificada</div>
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between pt-3 border-t border-[rgba(250,248,245,0.1)] text-[11px]">
-                    <span class="text-[var(--dim)]">Arquitetura tolerante a falhas · Conformidade LGPD</span>
-                    <span class="text-[#faf8f5]">Produção</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="project-slide-shade" aria-hidden="true"></div>
-      </div>
-    </article>
+    <!-- Subtle Bottom Pagination Status -->
+    <div class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[13px] text-[var(--dim)]">
+      <span>Passe o cursor sobre um projeto para destacar ou use as setas laterais</span>
+      <span id="projects-counter" class="font-medium text-[#faf8f5] tabular-nums">
+        <span class="text-[#ff5500]" id="projects-current-idx">01</span> / 0{PROJECTS.length}
+      </span>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const track = document.getElementById('projects-track');
+    const prevBtn = document.getElementById('projects-prev');
+    const nextBtn = document.getElementById('projects-next');
+    const currentIdxEl = document.getElementById('projects-current-idx');
+    const viewport = document.getElementById('projects-viewport');
+
+    if (!track || !prevBtn || !nextBtn || !viewport) return;
+
+    const items = Array.from(track.querySelectorAll('.project-carousel-item'));
+    const total = items.length;
+    if (total === 0) return;
+
+    let currentIndex = 0;
+
+    const getVisibleCount = () => (window.innerWidth >= 960 ? 3 : 1);
+
+    const updateCarousel = () => {
+      const visible = Math.min(getVisibleCount(), total);
+      const maxStartIndex = Math.max(0, total - visible);
+
+      if (currentIndex > maxStartIndex) {
+        currentIndex = 0;
+      } else if (currentIndex < 0) {
+        currentIndex = maxStartIndex;
+      }
+
+      const gap = window.innerWidth >= 960 ? 24 : 16;
+      const viewportWidth = viewport.clientWidth - 16; // account for px-2 (8px * 2)
+      const cardWidth = (viewportWidth - gap * (visible - 1)) / visible;
+
+      track.style.setProperty('--card-gap', `${gap}px`);
+      items.forEach((item) => {
+        item.style.width = `${cardWidth}px`;
+      });
+
+      const offset = currentIndex * (cardWidth + gap);
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+
+      if (currentIdxEl) {
+        currentIdxEl.textContent = String(currentIndex + 1).padStart(2, '0');
+      }
+    };
+
+    prevBtn.addEventListener('click', () => {
+      const visible = Math.min(getVisibleCount(), total);
+      const maxStartIndex = Math.max(0, total - visible);
+      currentIndex = currentIndex <= 0 ? maxStartIndex : currentIndex - 1;
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const visible = Math.min(getVisibleCount(), total);
+      const maxStartIndex = Math.max(0, total - visible);
+      currentIndex = currentIndex >= maxStartIndex ? 0 : currentIndex + 1;
+      updateCarousel();
+    });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    viewport.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartX = e.changedTouches[0]?.screenX || 0;
+      },
+      { passive: true }
+    );
+
+    viewport.addEventListener(
+      'touchend',
+      (e) => {
+        const touchEndX = e.changedTouches[0]?.screenX || 0;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) nextBtn.click();
+          else prevBtn.click();
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+  })();
+</script>
