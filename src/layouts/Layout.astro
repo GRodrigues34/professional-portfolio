@@ -39,12 +39,15 @@ const { title, description } = Astro.props;
           });
         });
 
-        const heroStage = document.getElementById('inicio');
-        const heroCue = document.getElementById('hero-scroll-cue');
-        const heroTitle = document.getElementById('hero-title-block');
-        const heroCase = document.getElementById('hero-case-preview');
+        const sections = Array.from(document.querySelectorAll('main > section')).map((sec) => ({
+          el: sec,
+          stage: sec.querySelector('.story-stage'),
+          items: Array.from(sec.querySelectorAll('[data-story-item]')),
+        }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+        const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+        const smoothstep = (t) => t * t * (3 - 2 * t);
 
         let ticking = false;
 
@@ -53,20 +56,74 @@ const { title, description } = Astro.props;
           if (reduceMotion) return;
 
           const vh = window.innerHeight || 1;
-          const sy = window.scrollY;
           const isDesktop = window.innerWidth >= 960;
 
-          // Hero Scroll Drift & Cue Fade
-          if (heroStage && sy < vh * 1.4) {
-            const heroProg = clamp(sy / vh, 0, 1);
-            if (heroCue) {
-              heroCue.style.opacity = String(clamp(1 - heroProg * 4.5, 0, 1));
+          for (let i = 0; i < sections.length; i++) {
+            const current = sections[i];
+            const rect = current.el.getBoundingClientRect();
+
+            // 1. Entrance progress (Slide-In as section enters from bottom)
+            const rawIn =
+              i === 0
+                ? 1
+                : clamp((vh * 0.96 - rect.top) / (vh * 0.68), 0, 1);
+            const inProg = easeOutCubic(rawIn);
+
+            // 2. Exit progress (Leave-Scene as next section rises into viewport)
+            let rawOut = 0;
+            if (i < sections.length - 1 && rect.top <= vh * 0.16) {
+              const nextRect = sections[i + 1].el.getBoundingClientRect();
+              rawOut = clamp((vh * 0.86 - nextRect.top) / (vh * 0.68), 0, 1);
             }
-            if (heroTitle && isDesktop) {
-              heroTitle.style.transform = `translate3d(0, ${-heroProg * 36}px, 0)`;
+            const outProg = smoothstep(rawOut);
+
+            // Apply stage-level slide-in and leave-scene transform
+            if (current.stage) {
+              if (rawIn >= 0.999 && rawOut <= 0.001) {
+                current.stage.style.opacity = '';
+                current.stage.style.transform = '';
+              } else {
+                const yIn = (1 - inProg) * 68;
+                const yOut = -outProg * 60;
+                const scale = (0.955 + 0.045 * inProg) * (1 - 0.06 * outProg);
+                const opacity = clamp(inProg * (1 - outProg * 0.92), 0, 1);
+
+                current.stage.style.opacity = opacity.toFixed(3);
+                current.stage.style.transform = `translate3d(0, ${(yIn + yOut).toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
+              }
             }
-            if (heroCase && isDesktop) {
-              heroCase.style.transform = `translate3d(0, ${-heroProg * 22}px, 0)`;
+
+            // Apply staggered child element slide-in and leave-scene choreography
+            for (let k = 0; k < current.items.length; k++) {
+              const item = current.items[k];
+              const idxAttr = Number(item.getAttribute('data-story-item') || k);
+              const dir = item.getAttribute('data-story-dir');
+              const dirSign = dir === 'left' ? -1 : dir === 'right' ? 1 : 0;
+
+              const inDelay = Math.min(idxAttr * 0.085, 0.36);
+              const itemInRaw =
+                i === 0
+                  ? 1
+                  : clamp((rawIn - inDelay) / Math.max(1 - inDelay, 0.2), 0, 1);
+              const itemIn = easeOutCubic(itemInRaw);
+
+              const outDelay = Math.min(idxAttr * 0.055, 0.24);
+              const itemOutRaw = clamp((rawOut - outDelay) / Math.max(1 - outDelay, 0.2), 0, 1);
+              const itemOut = smoothstep(itemOutRaw);
+
+              if (itemInRaw >= 0.999 && itemOutRaw <= 0.001) {
+                item.style.opacity = '';
+                item.style.transform = '';
+              } else {
+                const xIn = isDesktop ? dirSign * (1 - itemIn) * 36 : 0;
+                const xOut = isDesktop ? dirSign * itemOut * 28 : 0;
+                const iyIn = (1 - itemIn) * 42;
+                const iyOut = -itemOut * 36;
+                const itemOp = clamp(itemIn * (1 - itemOut * 0.94), 0, 1);
+
+                item.style.opacity = itemOp.toFixed(3);
+                item.style.transform = `translate3d(${(xIn + xOut).toFixed(1)}px, ${(iyIn + iyOut).toFixed(1)}px, 0)`;
+              }
             }
           }
         };

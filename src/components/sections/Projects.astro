@@ -6,11 +6,11 @@ import { PROJECTS } from '../../data/projects';
 <section
   id="projetos"
   aria-label="Projetos selecionados"
-  class="pt-[clamp(48px,6vh,80px)] pb-[clamp(72px,11vh,140px)] bg-[#0a0a0a] border-t border-[var(--line)]"
+  class="min-h-[88svh] flex flex-col justify-center py-[clamp(64px,8vh,110px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden"
 >
-  <div class="container-ed space-y-10">
+  <div class="container-ed story-stage space-y-10">
     <!-- Compact Editorial Lead-In Header -->
-    <div class="grid-12 items-end gap-y-4">
+    <div data-story-item="0" class="grid-12 items-end gap-y-4">
       <div class="col-span-12 md:col-span-3">
         <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
       </div>
@@ -25,7 +25,7 @@ import { PROJECTS } from '../../data/projects';
     </div>
 
     <!-- Side-by-Side Carousel Panel with Lateral Navigation Buttons -->
-    <div class="relative flex items-center gap-3 sm:gap-5">
+    <div data-story-item="1" class="relative flex items-center gap-3 sm:gap-5">
       <!-- Left Lateral Button (brings 1 project at a time) -->
       <button
         type="button"
@@ -73,7 +73,7 @@ import { PROJECTS } from '../../data/projects';
     </div>
 
     <!-- Subtle Bottom Pagination Status -->
-    <div class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[13px] text-[var(--dim)]">
+    <div data-story-item="2" class="flex items-center justify-between pt-2 border-t border-[var(--line)] text-[13px] text-[var(--dim)]">
       <span>Passe o cursor sobre um projeto para destacar ou use as setas laterais</span>
       <span id="projects-counter" class="font-medium text-[#faf8f5] tabular-nums">
         <span class="text-[#ff5500]" id="projects-current-idx">01</span> / 0{PROJECTS.length}

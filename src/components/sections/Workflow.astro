@@ -33,7 +33,7 @@ const steps = [
 ];
 ---
 
-<section id="processo" class="relative py-[clamp(80px,12vh,150px)] bg-[#0d0c0b] border-t border-[var(--line)] overflow-hidden">
+<section id="processo" class="relative min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0d0c0b] border-t border-[var(--line)] overflow-hidden">
   <!-- Subtle architectural background wash -->
   <div
     class="absolute inset-0 pointer-events-none"
@@ -41,9 +41,9 @@ const steps = [
     aria-hidden="true"
   ></div>
 
-  <div class="container-ed relative z-10 space-y-12">
+  <div class="container-ed story-stage relative z-10 space-y-12">
     <!-- Compact Section Header -->
-    <div class="grid-12 items-end gap-y-4">
+    <div data-story-item="0" class="grid-12 items-end gap-y-4">
       <div class="col-span-12 md:col-span-3">
         <p class="p-ed text-[#ff5500]">04 / Metodologia</p>
       </div>
@@ -59,8 +59,9 @@ const steps = [
 
     <!-- Side-by-Side 5-Step Interactive Panel -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-      {steps.map((step) => (
-        <article class="workflow-card group p-6 sm:p-7 flex flex-col justify-between gap-8 relative overflow-hidden">
+      {steps.map((step, idx) => (
+        <div data-story-item={idx + 1} class="h-full">
+          <article class="workflow-card group h-full p-6 sm:p-7 flex flex-col justify-between gap-8 relative overflow-hidden">
           <!-- Ambient hover glow inside step panel -->
           <div
             class="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -88,6 +89,7 @@ const steps = [
             </p>
           </div>
         </article>
+        </div>
       ))}
     </div>
   </div>

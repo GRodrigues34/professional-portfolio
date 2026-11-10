@@ -27,10 +27,10 @@ const faqs = [
 ];
 ---
 
-<section id="faq" class="py-[clamp(96px,14vh,180px)] bg-[#0a0a0a] border-t border-[var(--line)]">
-  <div class="container-ed grid-12 items-start">
+<section id="faq" class="min-h-[85svh] flex flex-col justify-center py-[clamp(96px,14vh,180px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
+  <div class="container-ed story-stage grid-12 items-start">
     <!-- Left Sticky Header (Col 1-4) -->
-    <div class="col-span-12 md:col-span-4 md:sticky md:top-[16vh] space-y-5 mb-12 md:mb-0">
+    <div data-story-item="0" data-story-dir="left" class="col-span-12 md:col-span-4 md:sticky md:top-[16vh] space-y-5 mb-12 md:mb-0">
       <p class="p-ed text-[#ff5500]">06 / Dúvidas comuns</p>
       <h2 class="h2-ed">
         Antes de <span class="serif-italic font-normal text-[var(--grey)]">começar.</span>
@@ -41,7 +41,7 @@ const faqs = [
     </div>
 
     <!-- Right Hairline Details List (Col 5-13) -->
-    <div class="col-span-12 md:col-span-8 md:col-start-5 border-b border-[var(--line)]">
+    <div data-story-item="1" data-story-dir="right" class="col-span-12 md:col-span-8 md:col-start-5 border-b border-[var(--line)]">
       {faqs.map((item, idx) => (
         <details class="group border-t border-[var(--line)] py-6 transition-colors" open={idx === 0}>
           <summary class="flex items-center justify-between gap-6 cursor-pointer list-none text-[clamp(18px,1.5vw,23px)] font-medium tracking-[-0.025em] text-[#faf8f5] group-hover:text-[#ff5500] transition-colors">

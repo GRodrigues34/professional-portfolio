@@ -472,6 +472,16 @@ a:focus-visible .roll-b {
   transform: scaleX(1);
 }
 
+/* Scroll-storytelling stage & item primitives */
+.story-stage {
+  will-change: transform, opacity;
+  transform-origin: 50% 50%;
+}
+
+[data-story-item] {
+  will-change: transform, opacity;
+}
+
 /* Sticky Curtain Footer (Enki .footer.is-curtain) */
 main {
   position: relative;

@@ -13,12 +13,14 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
     aria-hidden="true"
   ></div>
 
-  <div class="container-ed relative z-10 flex-1 flex flex-col justify-between pt-[clamp(96px,13vh,136px)] pb-[clamp(28px,4vh,48px)] gap-10">
+  <div class="container-ed story-stage relative z-10 flex-1 flex flex-col justify-between pt-[clamp(96px,13vh,136px)] pb-[clamp(28px,4vh,48px)] gap-10">
     <!-- Main Unified Hero Stage (image_4 architecture) -->
     <div class="grid-12 items-center my-auto gap-y-12">
       <!-- Left Column: Identity Logo, Strong Phrase, Simple Description, Immediate CTAs -->
       <div
         id="hero-title-block"
+        data-story-item="0"
+        data-story-dir="left"
         class="col-span-12 lg:col-span-6 flex flex-col items-start gap-6"
       >
         <!-- Brand / Logo Lockup -->
@@ -77,6 +79,8 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
       <!-- Right Column: Fanned Snippets of Works -->
       <div
         id="hero-case-preview"
+        data-story-item="1"
+        data-story-dir="right"
         class="col-span-12 lg:col-span-6 relative min-h-[290px] sm:min-h-[360px] flex items-center justify-center"
       >
         <a
@@ -161,7 +165,10 @@ import { ParticleCanvas } from '../widgets/ParticleCanvas';
     </div>
 
     <!-- Bottom Proof Bar (Projects | Attendance Range | Direct Contact) -->
-    <div class="w-full border border-[var(--line)] bg-[#111111]/90 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--line)]">
+    <div
+      data-story-item="2"
+      class="w-full border border-[var(--line)] bg-[#111111]/90 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--line)]"
+    >
       <div class="px-6 py-5 sm:px-8 sm:py-6">
         <strong class="block text-[clamp(20px,2vw,28px)] font-medium tracking-[-0.035em] text-[#faf8f5] tabular-nums">
           +10 projetos
