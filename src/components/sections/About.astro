@@ -2,9 +2,13 @@
 ---
 
 <section id="sobre" class="relative z-[3] min-h-[85svh] flex flex-col justify-center py-[clamp(96px,14vh,180px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
-  <div class="container-ed story-stage grid-12 items-start">
+  <div class="container-ed grid-12 items-start">
     <!-- Left Column: Editorial Monogram / Architectural Portrait Frame (Col 1-5) -->
-    <div data-story-item="0" data-story-dir="left" class="col-span-12 md:col-span-5 flex flex-col justify-between border border-[var(--line)] bg-[#111111] p-7 sm:p-10 min-h-[380px] relative overflow-hidden">
+    <div
+      data-reveal="left"
+      style="--reveal-delay: 0s;"
+      class="col-span-12 md:col-span-5 flex flex-col justify-between border border-[var(--line)] bg-[#111111] p-7 sm:p-10 min-h-[380px] relative overflow-hidden"
+    >
       <div
         class="absolute inset-0 pointer-events-none"
         style="background: radial-gradient(80% 80% at 85% 15%, rgba(255, 85, 0, 0.16), transparent 65%);"
@@ -32,30 +36,34 @@
     </div>
 
     <!-- Right Column: Editorial Narrative & Proof Ledger (Col 6-13) -->
-    <div data-story-item="1" data-story-dir="right" class="col-span-12 md:col-span-6 md:col-start-7 space-y-8 mt-10 md:mt-0">
+    <div class="col-span-12 md:col-span-6 md:col-start-7 space-y-8 mt-10 md:mt-0">
       <div class="space-y-3">
-        <p class="p-ed text-[#ff5500]">Engenharia e Consultoria Direta</p>
-        <h2 class="h2-ed">
-          Gustavo Rodrigues<br />
-          <span class="serif-italic font-normal text-[var(--grey)]">Software Engineer.</span>
+        <p data-reveal="right" style="--reveal-delay: 0.04s;" class="p-ed text-[#ff5500]">
+          Engenharia e Consultoria Direta
+        </p>
+        <h2 data-reveal-words class="h2-ed">
+          <span class="word-mask"><span class="reveal-word">Gustavo</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">Rodrigues</span></span><br />
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">Software</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">Engineer.</span></span>
         </h2>
       </div>
 
       <div class="space-y-5 max-w-[540px]">
-        <p class="p-ed white">
+        <p data-reveal="up" style="--reveal-delay: 0.12s;" class="p-ed white">
           Formando em Ciência da Computação pela Universidade Federal de Alfenas (UNIFAL-MG) e desenvolvedor de software independente. Construo páginas, sistemas e automações sob medida para empresas que precisam transmitir autoridade real e vender mais.
         </p>
-        <p class="p-ed">
+        <p data-reveal="up" style="--reveal-delay: 0.20s;" class="p-ed">
           Com trajetória no desenvolvimento de módulos clínicos que atendem mais de 80.000 pacientes no sistema SisAPEC e plataformas comerciais de alta performance, trago o rigor da engenharia de software para a presença digital do seu negócio.
         </p>
-        <p class="p-ed">
+        <p data-reveal="up" style="--reveal-delay: 0.28s;" class="p-ed">
           Sem agência intermediária, sem terceirização e sem burocracia: quem escuta a sua necessidade é quem projeta e constrói cada detalhe. Prazo combinado é prazo cumprido.
         </p>
       </div>
 
-      <!-- 3-Column Hairline Proof Strip (Diogo .about-proof refined) -->
+      <!-- 3-Column Hairline Proof Strip -->
       <div class="grid grid-cols-3 gap-6 pt-8 border-t border-[var(--line)]">
-        <div>
+        <div data-reveal="scale" style="--reveal-delay: 0.22s;">
           <strong class="block text-[clamp(24px,2.5vw,36px)] font-medium tracking-[-0.04em] text-[#faf8f5] tabular-nums">
             80k+
           </strong>
@@ -63,7 +71,7 @@
             usuários em sistemas críticos
           </span>
         </div>
-        <div>
+        <div data-reveal="scale" style="--reveal-delay: 0.30s;">
           <strong class="block text-[clamp(24px,2.5vw,36px)] font-medium tracking-[-0.04em] text-[#ff5500] tabular-nums">
             &lt; 1.0s
           </strong>
@@ -71,7 +79,7 @@
             carregamento real
           </span>
         </div>
-        <div>
+        <div data-reveal="scale" style="--reveal-delay: 0.38s;">
           <strong class="block text-[clamp(24px,2.5vw,36px)] font-medium tracking-[-0.04em] text-[#faf8f5]">
             Direto
           </strong>

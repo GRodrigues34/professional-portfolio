@@ -28,11 +28,13 @@ const ledgerItems = [
 ---
 
 <section id="valores" class="relative z-[3] min-h-[88svh] flex flex-col justify-center py-[clamp(80px,12vh,150px)] bg-[#0a0a0a] border-t border-[var(--line)] overflow-hidden">
-  <div class="container-ed story-stage grid-12 items-start">
+  <div class="container-ed grid-12 items-start">
     <!-- Left Column: Simple Phrase & Section Identity (Col 1-4) -->
-    <div data-story-item="0" data-story-dir="left" class="col-span-12 lg:col-span-4 lg:sticky lg:top-[18vh] space-y-5 mb-12 lg:mb-0">
-      <p class="p-ed text-[#ff5500]">02 / Filosofia de Engenharia</p>
-      <h2 class="h2-ed">
+    <div class="col-span-12 lg:col-span-4 lg:sticky lg:top-[18vh] space-y-5 mb-12 lg:mb-0">
+      <p data-reveal="left" style="--reveal-delay: 0s;" class="p-ed text-[#ff5500]">
+        02 / Filosofia de Engenharia
+      </p>
+      <h2 data-reveal-words class="h2-ed">
         <span class="word-mask"><span class="reveal-word">Por</span></span>{" "}
         <span class="word-mask"><span class="reveal-word">que</span></span>{" "}
         <span class="word-mask"><span class="reveal-word">a</span></span>{" "}
@@ -42,7 +44,7 @@ const ledgerItems = [
         <span class="word-mask"><span class="reveal-word">sua</span></span>{" "}
         <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">conversão.</span></span>
       </h2>
-      <p class="p-ed max-w-[340px]">
+      <p data-reveal="left" style="--reveal-delay: 0.14s;" class="p-ed max-w-[340px]">
         Criado para empresas e profissionais que recusam páginas genéricas e lentas.
       </p>
     </div>
@@ -50,7 +52,11 @@ const ledgerItems = [
     <!-- Right Column: 4 Engineering Elements with Orange Numbers (Col 5-13) -->
     <div class="col-span-12 lg:col-span-8 lg:col-start-5 border-b border-[var(--line)]">
       {ledgerItems.map((item, idx) => (
-        <article data-story-item={idx + 1} data-story-dir="right" class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-start group">
+        <article
+          data-reveal="right"
+          style={`--reveal-delay: ${(idx * 0.09).toFixed(2)}s;`}
+          class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-start group"
+        >
           <div class="md:col-span-2 text-[15px] font-medium text-[#ff5500] tabular-nums">
             {item.no}
           </div>

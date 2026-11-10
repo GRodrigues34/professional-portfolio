@@ -364,8 +364,36 @@ a:focus-visible .roll-b {
   transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.is-revealed .reveal-word {
+.is-revealed .reveal-word,
+.is-inview .reveal-word {
   transform: translate3d(0, 0, 0);
+}
+
+/* GPU-accelerated scroll reveal primitives (xd-agencia power3.out / expo.out pattern) */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 48px, 0) scale(0.96);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+  will-change: transform, opacity;
+}
+
+[data-reveal="left"] {
+  transform: translate3d(-40px, 28px, 0) scale(0.97);
+}
+
+[data-reveal="right"] {
+  transform: translate3d(40px, 28px, 0) scale(0.97);
+}
+
+[data-reveal="scale"] {
+  transform: translate3d(0, 36px, 0) scale(0.92);
+}
+
+[data-reveal].is-inview {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* Project Card & Side-by-Side Carousel Primitives */

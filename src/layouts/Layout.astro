@@ -40,13 +40,62 @@ const { title, description } = Astro.props;
         });
 
         // Set staggered transition delays on .reveal-word inside each heading
-        document.querySelectorAll('h2').forEach((heading) => {
-          const words = heading.querySelectorAll('.reveal-word');
-          words.forEach((w, idx) => {
-            w.style.transitionDelay = `${idx * 0.065}s`;
+        const initHeadingWords = () => {
+          document.querySelectorAll('h2').forEach((heading) => {
+            const words = heading.querySelectorAll('.reveal-word');
+            words.forEach((w, idx) => {
+              w.style.transitionDelay = `${idx * 0.06}s`;
+            });
           });
-        });
+        };
+        initHeadingWords();
 
+        // =========================================================================
+        // 1. GPU-ACCELERATED INTERSECTION OBSERVER FOR ALL SECTION ELEMENTS
+        // =========================================================================
+        const observedSet = new WeakSet();
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            for (let i = 0; i < entries.length; i++) {
+              const entry = entries[i];
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-inview');
+              } else {
+                // Smoothly reset when scrolled out so re-entering animates again
+                entry.target.classList.remove('is-inview');
+              }
+            }
+          },
+          {
+            threshold: 0.12,
+            rootMargin: '0px 0px -6% 0px',
+          }
+        );
+
+        const observeRevealTargets = () => {
+          const targets = document.querySelectorAll('[data-reveal], [data-reveal-words]');
+          targets.forEach((el) => {
+            if (!observedSet.has(el)) {
+              observedSet.add(el);
+              if (reduceMotion) {
+                el.classList.add('is-inview');
+              } else {
+                revealObserver.observe(el);
+              }
+            }
+          });
+        };
+        observeRevealTargets();
+
+        // Watch for hydrated React islands (e.g. ServicesTimeline) mounting new [data-reveal] nodes
+        const domObserver = new MutationObserver(() => {
+          observeRevealTargets();
+        });
+        domObserver.observe(document.body, { childList: true, subtree: true });
+
+        // =========================================================================
+        // 2. HERO (#inicio) -> PROJECTS (#projetos) OVERLAPPING CURTAIN (rAF GATED)
+        // =========================================================================
         const heroSection = document.getElementById('inicio');
         const heroShade = document.getElementById('hero-exit-shade');
         const heroVisual3D = document.getElementById('hero-visual-3d');
@@ -56,33 +105,34 @@ const { title, description } = Astro.props;
         const projectsStage = document.getElementById('projects-sticky-stage');
         const projEls = Array.from(document.querySelectorAll('[data-proj-el]'));
         const projCards = Array.from(document.querySelectorAll('[data-proj-card]'));
-
         const valuesSection = document.getElementById('valores');
-
-        // Sections from #valores onwards for scroll reveal choreography
-        const restSections = Array.from(document.querySelectorAll('main > section'))
-          .slice(2)
-          .map((sec) => ({
-            el: sec,
-            stage: sec.querySelector('.story-stage'),
-            items: Array.from(sec.querySelectorAll('[data-story-item]')),
-          }));
 
         const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
         const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-        const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
         const smoothstep = (t) => t * t * (3 - 2 * t);
 
-        // 3D mouse-reactive perspective tilt on Hero work snippets (xd-agencia .hero-visual mechanic)
+        // rAF-throttled 3D mouse-reactive perspective tilt on Hero work snippets
+        let pointerTicking = false;
+        let lastPointerX = 0;
+        let lastPointerY = 0;
+
         if (heroSection && heroVisual3D && !reduceMotion) {
           heroSection.addEventListener(
             'pointermove',
             (e) => {
-              if (window.innerWidth < 960 || window.scrollY > window.innerHeight * 0.5) return;
-              const r = heroSection.getBoundingClientRect();
-              const nx = (e.clientX - r.left) / r.width - 0.5;
-              const ny = (e.clientY - r.top) / r.height - 0.5;
-              heroVisual3D.style.transform = `translate3d(${(nx * 18).toFixed(1)}px, ${(ny * 14).toFixed(1)}px, 0) rotateX(${(-ny * 7).toFixed(2)}deg) rotateY(${(nx * 8).toFixed(2)}deg)`;
+              if (window.innerWidth < 960 || window.scrollY > window.innerHeight * 0.45) return;
+              lastPointerX = e.clientX;
+              lastPointerY = e.clientY;
+              if (!pointerTicking) {
+                pointerTicking = true;
+                requestAnimationFrame(() => {
+                  pointerTicking = false;
+                  const r = heroSection.getBoundingClientRect();
+                  const nx = (lastPointerX - r.left) / r.width - 0.5;
+                  const ny = (lastPointerY - r.top) / r.height - 0.5;
+                  heroVisual3D.style.transform = `translate3d(${(nx * 16).toFixed(1)}px, ${(ny * 12).toFixed(1)}px, 0) rotateX(${(-ny * 6).toFixed(2)}deg) rotateY(${(nx * 7).toFixed(2)}deg)`;
+                });
+              }
             },
             { passive: true }
           );
@@ -92,187 +142,115 @@ const { title, description } = Astro.props;
           });
         }
 
-        let ticking = false;
+        let scrollTicking = false;
+        let curtainSettledBelow = false;
 
-        const updateStorytelling = () => {
-          ticking = false;
-          if (reduceMotion) return;
+        const updateHeroCurtain = () => {
+          scrollTicking = false;
+          if (reduceMotion || !heroSection || !projectsSection) return;
 
           const vh = window.innerHeight || 1;
-          const isDesktop = window.innerWidth >= 960;
+          const sy = window.scrollY;
 
-          // =========================================================================
-          // 1. HERO (#inicio) -> PROJECTS (#projetos) OVERLAPPING CURTAIN REVEAL
-          // =========================================================================
-          if (heroSection && projectsSection) {
-            const projRect = projectsSection.getBoundingClientRect();
-
-            // riseP goes 0 -> 1 immediately as user starts scrolling and #projetos rises over #inicio
-            const riseRaw = clamp(1 - projRect.top / vh, 0, 1);
-            const riseEased = easeOutQuart(riseRaw);
-
-            // Trigger word-mask reveal on Projects heading once rising past 25%
-            projectsSection.classList.toggle('is-revealed', riseRaw > 0.22);
-
-            // A) Hero elements fluidly fade out, scale down, blur, and recede as Projects overlaps them
-            if (heroShade) {
-              heroShade.style.opacity = (smoothstep(riseRaw) * 0.88).toFixed(3);
+          // Skip all DOM rect reads once user has scrolled well past Projects into lower sections
+          if (sy > vh * 2.5) {
+            if (!curtainSettledBelow) {
+              curtainSettledBelow = true;
+              if (projectsStage) projectsStage.style.opacity = '';
             }
+            return;
+          }
+          curtainSettledBelow = false;
 
-            for (let i = 0; i < heroEls.length; i++) {
-              const el = heroEls[i];
-              const order = Number(el.getAttribute('data-hero-el') || i);
-              const stagger = order * 0.065;
-              const elOutRaw = clamp((riseRaw - stagger) / Math.max(0.82 - stagger, 0.25), 0, 1);
-              const elOut = smoothstep(elOutRaw);
+          const projRect = projectsSection.getBoundingClientRect();
+          const riseRaw = clamp(1 - projRect.top / vh, 0, 1);
 
-              if (elOut <= 0.001) {
-                el.style.opacity = '';
-                el.style.transform = '';
-                el.style.filter = '';
-              } else {
-                const driftY = -elOut * (42 + order * 10);
-                const sc = 1 - elOut * 0.085;
-                const op = clamp(1 - elOut * 1.08, 0, 1);
-                const blurPx = (elOut * 5.5).toFixed(1);
+          // Trigger word-mask reveal on Projects heading once rising past 20%
+          projectsSection.classList.toggle('is-revealed', riseRaw > 0.2);
 
-                el.style.opacity = op.toFixed(3);
-                el.style.transform = `translate3d(0, ${driftY.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
-                el.style.filter = elOut > 0.04 ? `blur(${blurPx}px)` : '';
-              }
-            }
+          // A) Hero elements fluidly fade out and recede (pure transform + opacity, zero blur)
+          if (heroShade) {
+            heroShade.style.opacity = (smoothstep(riseRaw) * 0.88).toFixed(3);
+          }
 
-            // B) Projects elements rise up overlapping Hero, then STOP & LOCK when riseRaw === 1
-            // Also check if #valores is rising up to replace #projetos at the end of the sticky hold
-            let projExitRaw = 0;
-            if (valuesSection) {
-              const valRect = valuesSection.getBoundingClientRect();
-              projExitRaw = clamp((vh * 0.88 - valRect.top) / (vh * 0.68), 0, 1);
-            }
-            const projExit = smoothstep(projExitRaw);
+          for (let i = 0; i < heroEls.length; i++) {
+            const el = heroEls[i];
+            const order = Number(el.getAttribute('data-hero-el') || i);
+            const stagger = order * 0.065;
+            const elOutRaw = clamp((riseRaw - stagger) / Math.max(0.82 - stagger, 0.25), 0, 1);
+            const elOut = smoothstep(elOutRaw);
 
-            for (let i = 0; i < projEls.length; i++) {
-              const el = projEls[i];
-              const order = Number(el.getAttribute('data-proj-el') || i);
-              const delay = order * 0.07;
-              const inRaw = clamp((riseRaw - delay) / Math.max(0.88 - delay, 0.25), 0, 1);
-              const inEased = easeOutCubic(inRaw);
+            if (elOut <= 0.001) {
+              el.style.opacity = '';
+              el.style.transform = '';
+            } else {
+              const driftY = -elOut * (40 + order * 10);
+              const sc = 1 - elOut * 0.08;
+              const op = clamp(1 - elOut * 1.08, 0, 1);
 
-              if (inRaw >= 0.999 && projExitRaw <= 0.001) {
-                // Locked in full visibility during the sticky hold so user can inspect projects!
-                el.style.opacity = '';
-                el.style.transform = '';
-                el.style.filter = '';
-              } else {
-                const yRise = (1 - inEased) * 76 - projExit * 54;
-                const sc = (0.92 + 0.08 * inEased) * (1 - 0.055 * projExit);
-                const op = clamp(inEased * (1 - projExit * 0.92), 0, 1);
-
-                el.style.opacity = op.toFixed(3);
-                el.style.transform = `translate3d(0, ${yRise.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
-              }
-            }
-
-            // Staggered rise on individual project cards as the carousel rises over Hero
-            for (let c = 0; c < projCards.length; c++) {
-              const cardWrap = projCards[c];
-              const cardDelay = Math.min(0.12 + c * 0.09, 0.42);
-              const cInRaw = clamp((riseRaw - cardDelay) / Math.max(0.92 - cardDelay, 0.25), 0, 1);
-              const cIn = easeOutCubic(cInRaw);
-
-              if (cInRaw >= 0.999) {
-                cardWrap.style.opacity = '';
-              } else {
-                cardWrap.style.opacity = clamp(cIn, 0, 1).toFixed(3);
-              }
-            }
-
-            if (projectsStage && projExitRaw > 0.001) {
-              projectsStage.style.opacity = clamp(1 - projExit * 0.85, 0.15, 1).toFixed(3);
-            } else if (projectsStage) {
-              projectsStage.style.opacity = '';
+              el.style.opacity = op.toFixed(3);
+              el.style.transform = `translate3d(0, ${driftY.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
             }
           }
 
-          // =========================================================================
-          // 2. FANCY SCROLL REVEAL FOR REMAINING SECTIONS (#valores -> #contato)
-          // =========================================================================
-          for (let i = 0; i < restSections.length; i++) {
-            const current = restSections[i];
-            const rect = current.el.getBoundingClientRect();
+          // B) Projects elements rise up overlapping Hero, then STOP & LOCK when riseRaw === 1
+          let projExitRaw = 0;
+          if (valuesSection) {
+            const valRect = valuesSection.getBoundingClientRect();
+            projExitRaw = clamp((vh * 0.88 - valRect.top) / (vh * 0.68), 0, 1);
+          }
+          const projExit = smoothstep(projExitRaw);
 
-            // Entrance progress (xd-agencia top 92% -> top 28% scrubbed reveal)
-            const rawIn = clamp((vh * 0.94 - rect.top) / (vh * 0.66), 0, 1);
-            const inProg = easeOutCubic(rawIn);
+          for (let i = 0; i < projEls.length; i++) {
+            const el = projEls[i];
+            const order = Number(el.getAttribute('data-proj-el') || i);
+            const delay = order * 0.07;
+            const inRaw = clamp((riseRaw - delay) / Math.max(0.88 - delay, 0.25), 0, 1);
+            const inEased = easeOutCubic(inRaw);
 
-            // Trigger word-by-word heading reveal
-            current.el.classList.toggle('is-revealed', rawIn > 0.18);
+            if (inRaw >= 0.999 && projExitRaw <= 0.001) {
+              el.style.opacity = '';
+              el.style.transform = '';
+            } else {
+              const yRise = (1 - inEased) * 72 - projExit * 48;
+              const sc = (0.93 + 0.07 * inEased) * (1 - 0.05 * projExit);
+              const op = clamp(inEased * (1 - projExit * 0.9), 0, 1);
 
-            // Exit progress when next section rises into viewport
-            let rawOut = 0;
-            if (i < restSections.length - 1 && rect.top <= vh * 0.14) {
-              const nextRect = restSections[i + 1].el.getBoundingClientRect();
-              rawOut = clamp((vh * 0.86 - nextRect.top) / (vh * 0.68), 0, 1);
+              el.style.opacity = op.toFixed(3);
+              el.style.transform = `translate3d(0, ${yRise.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
             }
-            const outProg = smoothstep(rawOut);
+          }
 
-            if (current.stage) {
-              if (rawIn >= 0.999 && rawOut <= 0.001) {
-                current.stage.style.opacity = '';
-                current.stage.style.transform = '';
-              } else {
-                const yIn = (1 - inProg) * 64;
-                const yOut = -outProg * 52;
-                const scale = (0.94 + 0.06 * inProg) * (1 - 0.05 * outProg);
-                const opacity = clamp(inProg * (1 - outProg * 0.88), 0, 1);
+          for (let c = 0; c < projCards.length; c++) {
+            const cardWrap = projCards[c];
+            const cardDelay = Math.min(0.12 + c * 0.085, 0.4);
+            const cInRaw = clamp((riseRaw - cardDelay) / Math.max(0.92 - cardDelay, 0.25), 0, 1);
+            const cIn = easeOutCubic(cInRaw);
 
-                current.stage.style.opacity = opacity.toFixed(3);
-                current.stage.style.transform = `translate3d(0, ${(yIn + yOut).toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
-              }
+            if (cInRaw >= 0.999) {
+              cardWrap.style.opacity = '';
+            } else {
+              cardWrap.style.opacity = clamp(cIn, 0, 1).toFixed(3);
             }
+          }
 
-            for (let k = 0; k < current.items.length; k++) {
-              const item = current.items[k];
-              const idxAttr = Number(item.getAttribute('data-story-item') || k);
-              const dir = item.getAttribute('data-story-dir');
-              const dirSign = dir === 'left' ? -1 : dir === 'right' ? 1 : 0;
-
-              const inDelay = Math.min(idxAttr * 0.085, 0.38);
-              const itemInRaw = clamp((rawIn - inDelay) / Math.max(1 - inDelay, 0.22), 0, 1);
-              const itemIn = easeOutCubic(itemInRaw);
-
-              const outDelay = Math.min(idxAttr * 0.055, 0.24);
-              const itemOutRaw = clamp((rawOut - outDelay) / Math.max(1 - outDelay, 0.22), 0, 1);
-              const itemOut = smoothstep(itemOutRaw);
-
-              if (itemInRaw >= 0.999 && itemOutRaw <= 0.001) {
-                item.style.opacity = '';
-                item.style.transform = '';
-                item.style.filter = '';
-              } else {
-                const xIn = isDesktop ? dirSign * (1 - itemIn) * 34 : 0;
-                const xOut = isDesktop ? dirSign * itemOut * 24 : 0;
-                const iyIn = (1 - itemIn) * 52;
-                const iyOut = -itemOut * 34;
-                const itemSc = 0.94 + 0.06 * itemIn;
-                const itemOp = clamp(itemIn * (1 - itemOut * 0.92), 0, 1);
-                const blurPx = ((1 - itemIn) * 3.5).toFixed(1);
-
-                item.style.opacity = itemOp.toFixed(3);
-                item.style.transform = `translate3d(${(xIn + xOut).toFixed(1)}px, ${(iyIn + iyOut).toFixed(1)}px, 0) scale(${itemSc.toFixed(4)})`;
-                item.style.filter = itemIn < 0.92 ? `blur(${blurPx}px)` : '';
-              }
-            }
+          if (projectsStage && projExitRaw > 0.001) {
+            projectsStage.style.opacity = clamp(1 - projExit * 0.85, 0.15, 1).toFixed(3);
+          } else if (projectsStage) {
+            projectsStage.style.opacity = '';
           }
         };
 
         const onScroll = () => {
-          updateStorytelling();
+          if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(updateHeroCurtain);
+          }
         };
 
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll);
-        updateStorytelling();
+        updateHeroCurtain();
       })();
     </script>
   </body>

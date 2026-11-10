@@ -41,19 +41,19 @@ const steps = [
     aria-hidden="true"
   ></div>
 
-  <div class="container-ed story-stage relative z-10 space-y-12">
+  <div class="container-ed relative z-10 space-y-12">
     <!-- Compact Section Header -->
-    <div data-story-item="0" class="grid-12 items-end gap-y-4">
-      <div class="col-span-12 md:col-span-3">
+    <div class="grid-12 items-end gap-y-4">
+      <div data-reveal="left" style="--reveal-delay: 0s;" class="col-span-12 md:col-span-3">
         <p class="p-ed text-[#ff5500]">04 / Metodologia</p>
       </div>
-      <h2 class="col-span-12 md:col-span-5 h2-ed">
+      <h2 data-reveal-words class="col-span-12 md:col-span-5 h2-ed">
         <span class="word-mask"><span class="reveal-word">Da</span></span>{" "}
         <span class="word-mask"><span class="reveal-word">descoberta</span></span>{" "}
         <span class="word-mask"><span class="reveal-word">à</span></span>{" "}
         <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">publicação.</span></span>
       </h2>
-      <div class="col-span-12 md:col-span-4 max-w-[340px]">
+      <div data-reveal="right" style="--reveal-delay: 0.14s;" class="col-span-12 md:col-span-4 max-w-[340px]">
         <p class="p-ed">
           Processo direto em 5 etapas, sem intermediários.
         </p>
@@ -63,35 +63,39 @@ const steps = [
     <!-- Side-by-Side 5-Step Interactive Panel -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
       {steps.map((step, idx) => (
-        <div data-story-item={idx + 1} class="h-full">
+        <div
+          data-reveal="scale"
+          style={`--reveal-delay: ${(idx * 0.09).toFixed(2)}s;`}
+          class="h-full"
+        >
           <article class="workflow-card group h-full p-6 sm:p-7 flex flex-col justify-between gap-8 relative overflow-hidden">
-          <!-- Ambient hover glow inside step panel -->
-          <div
-            class="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style="background: radial-gradient(85% 85% at 85% 15%, rgba(255, 85, 0, 0.16), transparent 70%);"
-            aria-hidden="true"
-          ></div>
+            <!-- Ambient hover glow inside step panel -->
+            <div
+              class="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style="background: radial-gradient(85% 85% at 85% 15%, rgba(255, 85, 0, 0.16), transparent 70%);"
+              aria-hidden="true"
+            ></div>
 
-          <!-- Top Header: Step Number & English Tag -->
-          <div class="relative z-10 flex items-baseline justify-between border-b border-[var(--line)] pb-4">
-            <span class="text-[22px] font-medium tracking-[-0.04em] text-[#ff5500] tabular-nums">
-              {step.no}
-            </span>
-            <span class="text-[12px] text-[var(--dim)] group-hover:text-[var(--grey)] transition-colors">
-              {step.en}
-            </span>
-          </div>
+            <!-- Top Header: Step Number & English Tag -->
+            <div class="relative z-10 flex items-baseline justify-between border-b border-[var(--line)] pb-4">
+              <span class="text-[22px] font-medium tracking-[-0.04em] text-[#ff5500] tabular-nums">
+                {step.no}
+              </span>
+              <span class="text-[12px] text-[var(--dim)] group-hover:text-[var(--grey)] transition-colors">
+                {step.en}
+              </span>
+            </div>
 
-          <!-- Step Title & Description -->
-          <div class="relative z-10 space-y-3 my-auto">
-            <h3 class="text-[clamp(20px,1.45vw,24px)] font-medium tracking-[-0.03em] text-[#faf8f5] leading-tight transition-colors duration-300 group-hover:text-[#ff5500]">
-              {step.label}
-            </h3>
-            <p class="p-ed text-[14px] leading-[1.42] group-hover:text-[#faf8f5]/85 transition-colors">
-              {step.text}
-            </p>
-          </div>
-        </article>
+            <!-- Step Title & Description -->
+            <div class="relative z-10 space-y-3 my-auto">
+              <h3 class="text-[clamp(20px,1.45vw,24px)] font-medium tracking-[-0.03em] text-[#faf8f5] leading-tight transition-colors duration-300 group-hover:text-[#ff5500]">
+                {step.label}
+              </h3>
+              <p class="p-ed text-[14px] leading-[1.42] group-hover:text-[#faf8f5]/85 transition-colors">
+                {step.text}
+              </p>
+            </div>
+          </article>
         </div>
       ))}
     </div>

@@ -164,16 +164,18 @@ export const ServicesTimeline: React.FC = () => {
     <div className="grid-12 items-start">
       {/* Left Sticky Editorial Column (Col 1-4) */}
       <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-[16vh] space-y-6 mb-12 lg:mb-0">
-        <p className="p-ed text-[#ff5500]">03 / Serviços e Investimento</p>
-        <h2 className="h2-ed">
+        <p data-reveal="left" style={{ '--reveal-delay': '0s' } as React.CSSProperties} className="p-ed text-[#ff5500]">
+          03 / Serviços e Investimento
+        </p>
+        <h2 data-reveal="left" style={{ '--reveal-delay': '0.08s' } as React.CSSProperties} className="h2-ed">
           Do primeiro pixel ao sistema <span className="serif-italic font-normal text-[var(--grey)]">no ar.</span>
         </h2>
-        <p className="p-ed max-w-[340px]">
+        <p data-reveal="left" style={{ '--reveal-delay': '0.16s' } as React.CSSProperties} className="p-ed max-w-[340px]">
           Você me explica o seu objetivo comercial. Eu indico o formato exato, organizo a arquitetura e cuido de toda a execução técnica.
         </p>
 
         {/* Active Scroll Counter Pill */}
-        <div className="pt-4 border-t border-[var(--line)] flex items-center justify-between max-w-[260px] text-[13px]">
+        <div data-reveal="left" style={{ '--reveal-delay': '0.24s' } as React.CSSProperties} className="pt-4 border-t border-[var(--line)] flex items-center justify-between max-w-[260px] text-[13px]">
           <span className="text-[var(--dim)]">Escopo em foco</span>
           <span className="font-medium text-[#faf8f5] tabular-nums">
             <span className="text-[#ff5500]">0{activeIndex + 1}</span> / 0{SERVICES.length}
@@ -235,8 +237,12 @@ export const ServicesTimeline: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                  {/* Service Details (8 cols) */}
-                  <div className="md:col-span-7 space-y-4">
+                  {/* Service Details (7 cols) */}
+                  <div
+                    data-reveal="up"
+                    style={{ '--reveal-delay': '0.04s' } as React.CSSProperties}
+                    className="md:col-span-7 space-y-4"
+                  >
                     <div>
                       <span className="text-[12px] font-medium text-[#ff5500] tracking-[-0.01em]">
                         {item.stack}
@@ -263,6 +269,8 @@ export const ServicesTimeline: React.FC = () => {
 
                   {/* Highlighted Pricing Block (5 cols) */}
                   <div
+                    data-reveal="right"
+                    style={{ '--reveal-delay': '0.14s' } as React.CSSProperties}
                     className={`md:col-span-5 md:text-right flex flex-col md:items-end justify-between gap-6 p-5 border transition-colors duration-500 ${
                       isCurrent
                         ? 'border-[#ff5500]/60 bg-[#141210]'

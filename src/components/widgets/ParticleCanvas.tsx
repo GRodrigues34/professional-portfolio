@@ -84,6 +84,13 @@ export const ParticleCanvas: React.FC = () => {
     );
     observer.observe(canvas);
 
+    // Pause canvas rendering once Hero is covered by the rising Projects curtain
+    const handleScrollVisibility = () => {
+      const coveredByProjects = window.scrollY >= height * 0.96;
+      isVisible = !coveredByProjects;
+    };
+    window.addEventListener('scroll', handleScrollVisibility, { passive: true });
+
     const linkDist = 148;
 
     const draw = () => {
@@ -161,6 +168,7 @@ export const ParticleCanvas: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScrollVisibility);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('mousemove', handlePointerMove);
       document.removeEventListener('pointerleave', handlePointerLeave);

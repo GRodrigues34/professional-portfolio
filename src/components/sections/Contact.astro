@@ -38,32 +38,45 @@ const channels = [
     aria-hidden="true"
   ></div>
 
-  <div class="container-ed story-stage relative z-10 space-y-20">
-    <!-- Top Editorial Headline (Enki #contact scale) -->
-    <div data-story-item="0" class="grid-12 items-end">
-      <div class="col-span-12 md:col-span-3">
+  <div class="container-ed relative z-10 space-y-20">
+    <!-- Top Editorial Headline -->
+    <div class="grid-12 items-end">
+      <div data-reveal="left" style="--reveal-delay: 0s;" class="col-span-12 md:col-span-3">
         <p class="p-ed text-[#ff5500]">07 / Iniciar um projeto</p>
       </div>
       <div class="col-span-12 md:col-span-9 space-y-6 mt-4 md:mt-0">
-        <h2 class="h1-ed max-w-[13ch]">
-          Se a visão é ambiciosa, o seu site deve estar <span class="serif-italic font-normal text-[var(--grey)]">à altura.</span>
+        <h2 data-reveal-words class="h1-ed max-w-[13ch]">
+          <span class="word-mask"><span class="reveal-word">Se</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">a</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">visão</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">é</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">ambiciosa,</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">o</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">seu</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">site</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">deve</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word">estar</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">à</span></span>{" "}
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">altura.</span></span>
         </h2>
-        <p class="p-ed max-w-[460px]">
+        <p data-reveal="up" style="--reveal-delay: 0.18s;" class="p-ed max-w-[460px]">
           Conte brevemente o que sua empresa faz e qual resultado você busca. Vou indicar a direção certa, com valor fechado e prazo definido antes de começar.
         </p>
       </div>
     </div>
 
     <!-- 3 Architectural Contact Rows (WhatsApp, Email, Instagram) -->
-    <div data-story-item="1" class="border-b border-[var(--line)]">
-      {channels.map((ch) => (
+    <div class="border-b border-[var(--line)]">
+      {channels.map((ch, idx) => (
         <a
           href={ch.href}
           target={ch.external ? "_blank" : undefined}
           rel={ch.external ? "noopener noreferrer" : undefined}
+          data-reveal="right"
+          style={`--reveal-delay: ${(idx * 0.10).toFixed(2)}s;`}
           class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-baseline group block"
         >
-          <span class="md:col-span-1 text-[14px] font-medium text-[var(--dim)] group-hover:text-[#ff5500] transition-colors tabular-nums">
+          <span class="md:col-span-1 text-[15px] font-medium text-[#ff5500] tabular-nums">
             {ch.no}
           </span>
           <span class="md:col-span-3 text-[15px] font-medium text-[var(--grey)]">
