@@ -42,26 +42,29 @@ professional-portfolio/
 ├── package.json              # Dependencies and build scripts
 ├── tailwind.config.mjs       # Tailwind theme extensions and token bridges
 ├── tsconfig.json             # TypeScript configuration
-├── public/                   # Static public assets (robots.txt, favicon.svg)
+├── public/                   # Static public assets (robots.txt, favicon.svg, images/project-placeholder.svg)
 ├── src/
 │   ├── env.d.ts              # Astro type declarations
+│   ├── data/
+│   │   └── projects.ts       # Typed catalog of portfolio projects for the carousel
 │   ├── layouts/
-│   │   └── Layout.astro      # Master document layout, SEO, scripts, grain & scroll controller
+│   │   └── Layout.astro      # Master document layout, SEO, grain & GPU scroll/reveal controller
 │   ├── pages/
 │   │   └── index.astro       # Single-page application orchestrating all 8 sections
 │   ├── components/
-│   │   ├── Navbar.astro      # Top floating bar with dual-layer text rolls
+│   │   ├── Navbar.astro      # Fixed top glass bar with dual-layer text rolls
+│   │   ├── ProjectCard.astro # Reusable project card with scale + orange glow hover effect
 │   │   ├── SEO.astro         # Meta tags, canonical links, social preview cards
 │   │   ├── SchemaOrg.astro   # JSON-LD ProfessionalService local business schema
 │   │   ├── widgets/
-│   │   │   ├── ParticleCanvas.tsx   # Interactive canvas node/constellation network (Lucas pattern)
-│   │   │   └── ServicesTimeline.tsx # Scroll-tracked orange progress line with 5 tiers
+│   │   │   ├── ParticleCanvas.tsx   # Interactive canvas node network (pauses when covered by #projetos)
+│   │   │   └── ServicesTimeline.tsx # Scroll-tracked orange progress line with 5 staggered tiers
 │   │   └── sections/
-│   │       ├── Hero.astro     # Asymmetric 12-col hero fold with masked line entrance
-│   │       ├── Projects.astro # Full-viewport sticky stacking slides (CSF, Aurora, SisAPEC)
-│   │       ├── Values.astro   # Pinned scroll-scrubbed manifesto + architectural ledger
+│   │       ├── Hero.astro     # Pinned sticky 100svh hero with word-mask entrance, 3D snippet stack & 3-col proof bar
+│   │       ├── Projects.astro # Overlapping curtain reveal + sticky 3-up/1-up carousel stepping 1 item at a time
+│   │       ├── Values.astro   # Unified split engineering philosophy with orange 001-004 pillars
 │   │       ├── Services.astro # Services wrapper mounting interactive React timeline
-│   │       ├── Workflow.astro # 5-step industrial delivery methodology (pinned index)
+│   │       ├── Workflow.astro # 5-column side-by-side interactive methodology step panel
 │   │       ├── About.astro    # Engineer profile, UNIFAL background, 3-metric proof strip
 │   │       ├── FAQ.astro      # Expandable accordion details list with hairline dividers
 │   │       ├── Contact.astro  # Multi-channel direct ledger (WhatsApp, Email, Instagram)
@@ -94,8 +97,8 @@ The visual language follows a **Swiss Kinetic Editorial** aesthetic, synthesized
   * Hairline borders (`1px solid var(--line)`) with smooth scale hover states.
   * Dual-layer text roll hover transitions (`.roll`, `.roll-a`, `.roll-b`).
   * Line-wipe animated links (`.line-link`).
-  * Sticky stacking project slides (`100svh` per slide with scale and darkening shade on scroll).
-  * Pinned word-by-word scroll illumination manifesto.
+  * Pinned Hero (`#inicio`) overlapped by rising `#projetos` curtain with sticky hold (`#projects-sticky-stage`) and 3-up desktop / 1-up mobile carousel stepping 1 item at a time.
+  * Word-mask headline reveals (`[data-reveal-words]`) and `IntersectionObserver`-driven GPU staggered element reveals (`[data-reveal]`) across all sections.
   * Sticky curtain reveal footer behind `<main>`.
 
 ---
@@ -121,9 +124,8 @@ npm run preview
 
 * **Remote Origin**: `git@github.com:GRodrigues34/professional-portfolio.git`
 * **Default Branch**: `main`
-* **Remote State**: Initialized with commit `e0c4195` (contains baseline `README.md`).
-* **Local State**: Complete Astro codebase exists in working directory as untracked files (`src/`, `public/`, configuration files, package manifests).
-* **Sync Instruction**: When pushing code to GitHub, ensure `.gitignore` allows necessary documentation files (`GEMINI.md`, `README.md`) while keeping internal scratch references private.
+* **Remote State**: Synced on `main` (`af6a9ce`, 8-commit UI, scroll-storytelling, and performance refactor).
+* **Sync Instruction**: Commit each logical change atomically on `main` and keep `.gitignore` rules (`references/`, `dist/`, `node_modules/`) intact.
 
 ---
 
@@ -133,9 +135,10 @@ npm run preview
    * Do NOT introduce generic SaaS cards, bloated purple/blue drop shadows, or rounded pill badges above headings.
    * Maintain the Swiss 12-column editorial grid and hairline dividers.
    * Keep the locked 5-hex color system. Do not introduce arbitrary CSS color values.
-2. **Performance Budget**:
+2. **Performance Budget & 60fps Scroll Guardrails**:
    * Never add heavy client-side JavaScript libraries unless strictly necessary.
-   * Prefer pure CSS and lightweight vanilla JS for scroll interactions.
+   * **Zero Per-Pixel Blur**: Never apply dynamic `filter: blur()` in scroll loops or `backdrop-filter: blur()` on full-viewport sticky overlays above `ParticleCanvas.tsx`. Restrict all scroll and reveal animations strictly to GPU-composited `transform: translate3d(...) scale(...)` and `opacity`.
+   * **Sticky Canvas Pause**: Because `#inicio` uses `position: sticky; top: 0`, standard `IntersectionObserver` always reports `isIntersecting: true`. `ParticleCanvas.tsx` must remain paused whenever `window.scrollY >= height * 0.96`.
    * Interactive React islands must use appropriate client directives (`client:load`, `client:visible`).
 3. **Copywriting Integrity**:
    * All public client-facing copy in `src/` must remain in high-register Brazilian Portuguese (`pt-BR`).
