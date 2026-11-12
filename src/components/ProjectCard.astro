@@ -15,12 +15,12 @@ const { title, description, image, href = '#contato' } = Astro.props;
     aria-label={`Ver projeto ${title}`}
   >
     <!-- Project Image Container -->
-    <div class="aspect-[16/10] w-full overflow-hidden bg-[#161514] border-b border-[var(--line)] relative">
+    <div class="aspect-[3/2] w-full overflow-hidden bg-[#161514] border-b border-[var(--line)] relative">
       <img
         src={image}
         alt={`Prévia do projeto ${title}`}
-        width="800"
-        height="500"
+        width="900"
+        height="600"
         loading="lazy"
         decoding="async"
         class="w-full h-full object-cover transition-transform duration-500 ease-[var(--ease)] group-hover:scale-[1.04]"

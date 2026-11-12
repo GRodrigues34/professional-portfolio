@@ -269,8 +269,6 @@ export const ServicesTimeline: React.FC = () => {
 
                   {/* Highlighted Pricing Block (5 cols) */}
                   <div
-                    data-reveal="right"
-                    style={{ '--reveal-delay': '0.14s' } as React.CSSProperties}
                     className={`md:col-span-5 md:text-right flex flex-col md:items-end justify-between gap-6 p-5 border transition-colors duration-500 ${
                       isCurrent
                         ? 'border-[#ff5500]/60 bg-[#141210]'

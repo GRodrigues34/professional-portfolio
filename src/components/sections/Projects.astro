@@ -11,23 +11,20 @@ import { PROJECTS } from '../../data/projects';
   <!-- Sticky Stage: rises over Hero, then locks in full view so user can inspect projects -->
   <div
     id="projects-sticky-stage"
-    class="sticky top-0 min-h-[100svh] flex flex-col justify-center py-[clamp(76px,10vh,112px)] border-t border-[rgba(255,85,0,0.28)]"
+    class="sticky top-0 min-h-[100svh] flex flex-col justify-center pt-[clamp(72px,8vh,92px)] pb-[clamp(24px,4vh,44px)] border-t border-[rgba(255,85,0,0.28)]"
     style="background: linear-gradient(180deg, rgba(10, 10, 10, 0.92) 0%, #0a0a0a 18%); box-shadow: 0 -20px 44px rgba(0, 0, 0, 0.85);"
   >
-    <div class="container-ed space-y-9">
+    <div class="container-ed space-y-5 sm:space-y-6">
       <!-- Compact Editorial Lead-In Header -->
-      <div class="grid-12 items-end gap-y-4">
+      <div class="grid-12 items-end gap-y-3">
         <div data-proj-el="0" class="col-span-12 md:col-span-3">
           <p class="p-ed text-[#ff5500]">01 / Portfólio selecionado</p>
         </div>
-        <h2 data-proj-el="1" class="col-span-12 md:col-span-5 h2-ed">
+        <h2 data-proj-el="1" class="col-span-12 md:col-span-6 h2-ed sm:whitespace-nowrap text-[clamp(30px,3.6vw,54px)]">
           <span class="word-mask"><span class="reveal-word">Trabalhos</span></span>{" "}
-          <span class="word-mask"><span class="reveal-word">que</span></span>{" "}
-          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">falam</span></span>{" "}
-          <span class="word-mask"><span class="reveal-word">por</span></span>{" "}
-          <span class="word-mask"><span class="reveal-word">si.</span></span>
+          <span class="word-mask"><span class="reveal-word serif-italic font-normal text-[var(--grey)]">realizados</span></span>
         </h2>
-        <div data-proj-el="2" class="col-span-12 md:col-span-4 max-w-[360px]">
+        <div data-proj-el="2" class="col-span-12 md:col-span-3 max-w-[340px]">
           <p class="p-ed">
             Sistemas, sites e automações reais construídos sob medida para gerar autoridade, velocidade e resultado operacional.
           </p>
@@ -35,7 +32,7 @@ import { PROJECTS } from '../../data/projects';
       </div>
 
       <!-- Side-by-Side Carousel Panel with Lateral Navigation Buttons -->
-      <div data-proj-el="3" class="relative flex items-center gap-3 sm:gap-5">
+      <div data-proj-el="3" class="relative flex items-center gap-2 sm:gap-3">
         <!-- Left Lateral Button (brings 1 project at a time) -->
         <button
           type="button"
@@ -51,7 +48,7 @@ import { PROJECTS } from '../../data/projects';
         <!-- Carousel Viewport (3 projects on desktop, 1 on phone) -->
         <div
           id="projects-viewport"
-          class="w-full overflow-hidden py-5 px-2 -mx-2"
+          class="w-full overflow-hidden py-3 px-2 -mx-2"
         >
           <div
             id="projects-track"
